@@ -1,6 +1,6 @@
 <img src="public/images/black_icon.ico" width="80" ><img> 
 
-# RoBorregos Web                 
+# RoBorregos Webiu                 
 
 
 Front-end web app for the official RoBorregos' (international robotics team) web site.
