@@ -17,7 +17,6 @@ class Home extends Component {
         <HomeMiniInformation />
         <HomeInformation />
         <HomeSponsors sponsors={sponsorsData.sponsors} />
-        <Footer />
       </div>
     )
   }

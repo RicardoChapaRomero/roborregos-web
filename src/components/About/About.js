@@ -13,7 +13,6 @@ class About extends Component {
       <div className="about-container">
         <AboutHeader />
         <AboutTimeline events={timelineData.events} />
-        <Footer />
       </div>
     )
   }

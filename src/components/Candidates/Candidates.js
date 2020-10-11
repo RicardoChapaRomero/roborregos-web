@@ -16,8 +16,7 @@ class Candidates extends Component {
         <CandidatesHeader />
         <CandidatesCarousel />
         <CandidatesInfo />
-        <CandidatesJoinUs positionsData={positionsData} />
-        <Footer />
+        <CandidatesJoinUs positionsData={positionsData} />     
       </div>
     )
   }

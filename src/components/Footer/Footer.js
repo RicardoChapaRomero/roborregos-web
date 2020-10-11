@@ -1,3 +1,4 @@
+// @flow
 import React, { Component } from 'react'
 import { Row, Col, Container } from 'react-bootstrap'
 import IconButton from '@material-ui/core/IconButton'

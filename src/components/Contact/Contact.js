@@ -18,7 +18,6 @@ const Contact = () => {
       <ContactSponsorUs url_contact={sponsorsData.url_contact} packages={sponsorsData.packages} />
       <ContactDonations />
       <ContactCompetitions competitions={competitionsData.competitions} />
-      <Footer />
     </div>
   )
 }
