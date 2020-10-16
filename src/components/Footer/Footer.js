@@ -80,10 +80,9 @@ class Footer extends Component<Props, State> {
           <Col lg="4" className="sitemap-container">
           {routes.map((route: RouteType, index: number) => (
               <Link
-                eventKey={index}
+                eventkey={index}
                 key={index}
                 className='sitemap-link'
-                as={Link}
                 to={route.path}
                 onClick={() => {
                   this.handleNavbarClick(route.path)
@@ -155,10 +154,9 @@ class Footer extends Component<Props, State> {
               <div>
               {routes.map((route: RouteType, index: number) => (
               <Link
-                eventKey={index}
+                eventkey={index}
                 key={index}
                 className='sitemap-link'
-                as={Link}
                 to={route.path}
                 onClick={() => {
                   this.handleNavbarClick(route.path)
