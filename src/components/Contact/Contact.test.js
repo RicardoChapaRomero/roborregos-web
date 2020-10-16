@@ -2,8 +2,9 @@
 import React from 'react'
 import { render, unmountComponentAtNode } from 'react-dom'
 import { act } from 'react-dom/test-utils'
-
+import { BrowserRouter as Router } from 'react-router-dom'
 import Contact from './Contact'
+import routesData from '../../data/routes.json'
 
 let container = null
 beforeEach(() => {
@@ -29,7 +30,7 @@ afterEach(() => {
 
 it('<Contact> Renders correctly with Title Name', () => {
   act(() => {
-    render(<Contact />, container)
+    render(<Router> <Contact routes = {routesData.routes}/> </Router>, container)
   })
   expect(document.title).toBe('RoBorregos | Contact')
 })
