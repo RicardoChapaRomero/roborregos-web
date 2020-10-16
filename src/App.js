@@ -31,17 +31,16 @@ class App extends Component<Props> {
         <div className="app-container">
           <NavBar routes={routesData.routes} />
           <Switch>
-            <Route exact path="/" component={() => <Home />} />
-            <Route path="/about" component={() => <About />} />
+            <Route exact path="/" component={() => <Home routes={routesData.routes} />} />
+            <Route path="/about" component={() => <About routes={routesData.routes}/>} />
             <Route
               path="/members"
-              component={() => <Members membersData={membersData} />}
+              component={() => <Members membersData={membersData} routes={routesData.routes} />}
             />
-            <Route path="/contact" component={() => <Contact />} />
-            <Route path="/candidates" component={() => <Candidates />} />
+            <Route path="/contact" component={() => <Contact routes={routesData.routes}/>} />
+            <Route path="/candidates" component={() => <Candidates routes={routesData.routes}/>} />
             <Redirect to="/"/>
           </Switch>
-          <Footer/>
         </div>
       </Router>
     )

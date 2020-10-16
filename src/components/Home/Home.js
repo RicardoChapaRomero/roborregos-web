@@ -17,6 +17,7 @@ class Home extends Component {
         <HomeMiniInformation />
         <HomeInformation />
         <HomeSponsors sponsors={sponsorsData.sponsors} />
+        <Footer routes = {this.props.routes} />
       </div>
     )
   }

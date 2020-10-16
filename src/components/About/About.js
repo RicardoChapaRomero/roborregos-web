@@ -13,6 +13,7 @@ class About extends Component {
       <div className="about-container">
         <AboutHeader />
         <AboutTimeline events={timelineData.events} />
+        <Footer routes = {this.props.routes} />
       </div>
     )
   }

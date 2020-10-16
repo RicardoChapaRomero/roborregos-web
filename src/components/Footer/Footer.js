@@ -10,24 +10,23 @@ import logo from '../../images/white_logo.png'
 import smallLogo from '../../images/small_logo.png'
 import { MEDIUM_WIDTH, MOBILE_WIDTH } from '../../constants'
 import './Footer.css'
+import { Link } from 'react-router-dom'
 
-function sitemapLink(link, legend, big) {
-  if (big) {
-    return (
-      <span>
-        <a href={link} className="sitemap-link">
-          { legend }
-        </a>
-        <br />
-      </span>
-    )
-  }
-  return (
-    <a href={link} className="sitemap-link">
-      { legend }
-    </a>
-  )
-}
+type RouteType = {
+  path: string,
+  legend: string,
+  component: string
+};
+
+type Props = {
+  routes: Array<RouteType>
+};
+
+type State = {
+  icon_size: Number,
+  view_size_large: Boolean
+};
+
 
 function sitemapIconButton(link, icon) {
   return (
@@ -40,7 +39,7 @@ function sitemapIconButton(link, icon) {
   )
 }
 
-class Footer extends Component {
+class Footer extends Component<Props, State> {
   constructor(props) {
     super(props)
 
@@ -48,8 +47,6 @@ class Footer extends Component {
     this.largeView = this.largeView.bind(this)
     this.smallView = this.smallView.bind(this)
     this.goUp = this.goUp.bind(this)
-
-    this.members = props.members
 
     this.state = {
       icon_size: (window.innerWidth >= MOBILE_WIDTH) ? 40 : 35,
@@ -73,6 +70,7 @@ class Footer extends Component {
   }
 
   largeView() {
+    const { routes } = this.props
     return (
       <div className="footer-container">
         <Row className="footer-row">
@@ -80,18 +78,22 @@ class Footer extends Component {
             <img src={logo} className="footer-logo" alt="logo" />
           </Col>
           <Col lg="4" className="sitemap-container">
-            <div className="sitemap-link">
-              { sitemapLink('/', 'Home', true) }
-            </div>
-            <div className="sitemap-link">
-              { sitemapLink('/about', 'About', true) }
-            </div>
-            <div className="sitemap-link">
-              { sitemapLink('/members', 'Members', true) }
-            </div>
-            <div className="sitemap-link">
-              { sitemapLink('/contact', 'Contact', true) }
-            </div>
+          {routes.map((route: RouteType, index: number) => (
+              <Link
+                eventKey={index}
+                key={index}
+                className='sitemap-link'
+                as={Link}
+                to={route.path}
+                onClick={() => {
+                  this.handleNavbarClick(route.path)
+                }}
+              >
+                <div className="navbar-btn-legend">
+                  { route.legend }
+                </div>
+              </Link>
+            ))}
           </Col>
           <Col lg="4">
             <Row>
@@ -126,6 +128,7 @@ class Footer extends Component {
   }
 
   smallView() {
+    const { routes } = this.props
     return (
       <Container fluid className="footer-container">
         <Row noGutters className="footer-row">
@@ -150,10 +153,22 @@ class Footer extends Component {
             </Row>
             <Row noGutters className="sitemap-container">
               <div>
-                { sitemapLink('/', 'Home', false) }
-                { sitemapLink('/about', 'About', false) }
-                { sitemapLink('/members', 'Members', false) }
-                { sitemapLink('/contact', 'Contact', false) }
+              {routes.map((route: RouteType, index: number) => (
+              <Link
+                eventKey={index}
+                key={index}
+                className='sitemap-link'
+                as={Link}
+                to={route.path}
+                onClick={() => {
+                  this.handleNavbarClick(route.path)
+                }}
+              >
+                <div className="navbar-btn-legend">
+                  { route.legend }
+                </div>
+              </Link>
+            ))}
                 <div className="mark-text">
                   @2020 RoBorregos
                 </div>

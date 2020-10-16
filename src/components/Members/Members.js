@@ -22,6 +22,7 @@ class Members extends Component {
         <MembersHeader />
         <MembersGrid active_members={active} inactive_members={inactive} />
         <MembersJoinUs />
+        <Footer routes = {this.props.routes} />
       </div>
     )
   }
