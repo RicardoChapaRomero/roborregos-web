@@ -84,9 +84,7 @@ class Footer extends Component<Props, State> {
                 key={index}
                 className='sitemap-link'
                 to={route.path}
-                onClick={() => {
-                  this.handleNavbarClick(route.path)
-                }}
+                onClick = {this.goUp}
               >
                 <div className="navbar-btn-legend">
                   { route.legend }
@@ -158,9 +156,7 @@ class Footer extends Component<Props, State> {
                 key={index}
                 className='sitemap-link'
                 to={route.path}
-                onClick={() => {
-                  this.handleNavbarClick(route.path)
-                }}
+                onClick = {this.goUp}
               >
                 <div className="navbar-btn-legend">
                   { route.legend }

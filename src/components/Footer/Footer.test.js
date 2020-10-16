@@ -61,3 +61,33 @@ it('<Footer> Renders correctly', () => {
     }
   })
 })
+
+it('<Footer> Links correctly when clicked', () => {
+  // Instead of storing the browsing history in the browser, during tests
+  // its convenient to store it locally in a variable to test
+  // wether the routing works properly.
+  const history = createMemoryHistory()
+  act(() => {
+    render(
+      <Router history={history}>
+        <Footer routes={routesData.routes} />
+      </Router>, container,
+    )
+  })
+
+  routesData.routes.forEach((route: RouteType, index: number) => {
+    const current_button = document.querySelector(`[eventkey="${index}"]`)
+    if (current_button != null) {
+
+      fireEvent(current_button, new MouseEvent('click', {
+        bubbles: true,
+        cancelable: true,
+      }))
+
+      expect(history.location.pathname).toBe(route.path)
+    } else {
+      expect(current_button).not.toEqual(null)
+    }
+  })
+})
+
