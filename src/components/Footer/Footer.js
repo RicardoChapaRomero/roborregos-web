@@ -37,7 +37,7 @@ class Footer extends Component<Props, State> {
     }
   }
 
-  setSizeAtributes() {
+  setSizeAtributes = () => {
     this.setState({
       icon_size: (window.innerWidth >= MOBILE_WIDTH) ? 40 : 35,
       view_size_large: (window.innerWidth > MEDIUM_WIDTH),
