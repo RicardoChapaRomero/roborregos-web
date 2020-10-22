@@ -1,7 +1,7 @@
 // @flow
 import React, { Component } from 'react'
 import { Navbar, Nav } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
+import { Link, NavLink} from 'react-router-dom'
 import logo from '../../images/white_logo.png'
 import './NavBar.css'
 
@@ -107,12 +107,12 @@ class NavBar extends Component<Props, State> {
           <Nav id="navbar-container" className="mr-auto">
 
             {routes.map((route: RouteType, index: number) => (
-              <Nav.Link
-                eventKey={index}
+              <NavLink
+                eventkey={index}
                 key={index}
-                className={this.getClassName(route.path)}
-                as={Link}
+                className='navbar-btn'
                 to={route.path}
+                exact
                 onClick={() => {
                   this.handleNavbarClick(route.path)
                 }}
@@ -120,7 +120,7 @@ class NavBar extends Component<Props, State> {
                 <div className="navbar-btn-legend">
                   { route.legend }
                 </div>
-              </Nav.Link>
+              </NavLink>
             ))}
 
           </Nav>

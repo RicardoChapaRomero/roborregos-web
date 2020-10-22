@@ -54,7 +54,11 @@
   color: rgba(255, 255, 255, 0.8);
 }
 
-#app-navbar .navbar-nav .navbar-btn:hover .navbar-btn-legend {
+#app-navbar .navbar-nav a{
+  text-decoration: none;
+}
+
+#app-navbar .navbar-nav .navbar-btn:hover:not(.active) .navbar-btn-legend {
   transform: translateY(1px);
   color: rgb(0, 225, 250);
 }
