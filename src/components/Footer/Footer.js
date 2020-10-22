@@ -23,43 +23,18 @@ type Props = {
 };
 
 type State = {
-  icon_size: Number,
-  view_size_large: Boolean
+  icon_size: number,
+  view_size_large: boolean
 };
 
-
-function sitemapIconButton(link, icon) {
-  return (
-    <a
-      href={link}
-      className="icon-link"
-    >
-      { icon }
-    </a>
-  )
-}
-
 class Footer extends Component<Props, State> {
-  constructor(props) {
+  constructor(props : Props) {
     super(props)
-
-    this.setSizeAtributes = this.setSizeAtributes.bind(this)
-    this.largeView = this.largeView.bind(this)
-    this.smallView = this.smallView.bind(this)
-    this.goUp = this.goUp.bind(this)
 
     this.state = {
       icon_size: (window.innerWidth >= MOBILE_WIDTH) ? 40 : 35,
       view_size_large: (window.innerWidth > MEDIUM_WIDTH),
     }
-  }
-
-  componentDidMount() {
-    window.addEventListener('resize', this.setSizeAtributes)
-  }
-
-  goUp() {
-    window.scrollTo(0, 0)
   }
 
   setSizeAtributes() {
@@ -68,6 +43,15 @@ class Footer extends Component<Props, State> {
       view_size_large: (window.innerWidth > MEDIUM_WIDTH),
     })
   }
+
+  goUp = () => {
+    window.scrollTo(0,0)
+  }
+
+  componentDidMount() {
+    window.addEventListener('resize', this.setSizeAtributes)
+  }
+
 
   largeView() {
     const { routes } = this.props
@@ -110,9 +94,15 @@ class Footer extends Component<Props, State> {
             </Row>
             <Row>
               <div className="row-socialMedia">
-                { sitemapIconButton('https://www.instagram.com/roborregos/', <InstagramIcon style={{ fontSize: this.state.icon_size }} />) }
-                { sitemapIconButton('https://www.facebook.com/RoBorregos/', <FacebookIcon style={{ fontSize: this.state.icon_size }} />) }
-                { sitemapIconButton('https://github.com/RoBorregos/', <GitHubIcon style={{ fontSize: this.state.icon_size - 5 }} />) }
+                <a href={'https://www.instagram.com/roborregos/'} className="icon-link">
+                <InstagramIcon style={{ fontSize: this.state.icon_size }} />
+                </a>
+                <a href={'https://www.facebook.com/RoBorregos/'} className="icon-link">
+                <FacebookIcon style={{ fontSize: this.state.icon_size }} />
+                </a>
+                <a href={'https://github.com/RoBorregos/'} className="icon-link">
+                <GitHubIcon style={{ fontSize: this.state.icon_size - 5 }} />
+                </a>
                 <div className="mark-text">
                   @2020 RoBorregos
                 </div>
@@ -156,7 +146,7 @@ class Footer extends Component<Props, State> {
                 key={index}
                 className='sitemap-link'
                 to={route.path}
-                onClick = {this.goUp}
+                onClick={this.goUp}
               >
                 <div className="navbar-btn-legend">
                   { route.legend }
@@ -169,9 +159,15 @@ class Footer extends Component<Props, State> {
               </div>
             </Row>
             <Row className="row-socialMedia">
-              { sitemapIconButton('https://www.instagram.com/roborregos/', <InstagramIcon style={{ fontSize: this.state.icon_size }} />) }
-              { sitemapIconButton('https://www.facebook.com/RoBorregos/', <FacebookIcon style={{ fontSize: this.state.icon_size }} />) }
-              { sitemapIconButton('https://github.com/RoBorregos/', <GitHubIcon style={{ fontSize: this.state.icon_size - 2, paddingBottom: '0.5vh' }} />) }
+                <a href={'https://www.instagram.com/roborregos/'} className="icon-link">
+                <InstagramIcon style={{ fontSize: this.state.icon_size }} />
+                </a>
+                <a href={'https://www.facebook.com/RoBorregos/'} className="icon-link">
+                <FacebookIcon style={{ fontSize: this.state.icon_size }} />
+                </a>
+                <a href={'https://github.com/RoBorregos/'} className="icon-link">
+                <GitHubIcon style={{ fontSize: this.state.icon_size - 5 }} />
+                </a>
             </Row>
           </Col>
         </Row>
