@@ -93,7 +93,6 @@ it('<NavBar> Links correctly when clicked', () => {
         cancelable: true,
       }))
       
-      //expect(current_button.className).toContain('active')
       expect(history.location.pathname).toBe(route.path)
 
     } else {
