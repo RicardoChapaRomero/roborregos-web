@@ -52,7 +52,6 @@ class Footer extends Component<Props, State> {
     window.addEventListener('resize', this.setSizeAtributes)
   }
 
-
   largeView() {
     const { routes } = this.props
     return (
