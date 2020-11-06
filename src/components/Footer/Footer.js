@@ -44,7 +44,7 @@ class Footer extends Component<Props, State> {
     })
   }
 
-  goUp = () => {
+  scrollToUp = () => {
     window.scrollTo(0,0)
   }
 
@@ -61,14 +61,14 @@ class Footer extends Component<Props, State> {
           <Col lg="4" className="col-logo">
             <img src={logo} className="footer-logo" alt="logo" />
           </Col>
-          <Col lg="4" className="sitemap-container">
+          <Col lg={{ offset: 1 }} className="sitemap-container">
           {routes.map((route: RouteType, index: number) => (
               <Link
                 eventkey={index}
                 key={index}
                 className='sitemap-link'
                 to={route.path}
-                onClick = {this.goUp}
+                onClick = {this.scrollToUp}
               >
                 <div className="navbar-btn-legend">
                   { route.legend }
@@ -76,40 +76,27 @@ class Footer extends Component<Props, State> {
               </Link>
             ))}
           </Col>
-          <Col lg="4">
-            <Row>
-              <div className="goback-button">
-                <IconButton
-                  component="a"
-                  onClick={this.goUp}
-                  color="inherit"
-                  className="sitemap-link"
-                >
-                  <ExpandLessIcon />
-                  <div className="goback-text">
-                    Back to top
-                  </div>
-                </IconButton>
-              </div>
-            </Row>
-            <Row>
-              <div className="row-socialMedia">
-                <a href={'https://www.instagram.com/roborregos/'} className="icon-link">
+          <Col lg="2" >
+            <a id="back-to-top" onClick={this.scrollToUp}> <ExpandLessIcon />
+                  Back to Top </a>
+          </Col>
+        </Row>
+        <Row className="row-socialMedia justify-content-end">
+          <Col lg = "4" > 
+                <a target="_blank" href={'https://www.instagram.com/roborregos/'} className="icon-link">
                 <InstagramIcon style={{ fontSize: this.state.icon_size }} />
                 </a>
-                <a href={'https://www.facebook.com/RoBorregos/'} className="icon-link">
+                <a target="_blank" href={'https://www.facebook.com/RoBorregos/'} className="icon-link">
                 <FacebookIcon style={{ fontSize: this.state.icon_size }} />
                 </a>
-                <a href={'https://github.com/RoBorregos/'} className="icon-link">
+                <a target="_blank" href={'https://github.com/RoBorregos/'} className="icon-link">
                 <GitHubIcon style={{ fontSize: this.state.icon_size - 5 }} />
                 </a>
                 <div className="mark-text">
                   @2020 RoBorregos
                 </div>
-              </div>
-            </Row>
-          </Col>
-        </Row>
+          </Col>       
+          </Row>
       </div>
     )
   }
@@ -123,20 +110,9 @@ class Footer extends Component<Props, State> {
             <img src={smallLogo} className="footer-logo" alt="logo" />
           </Col>
           <Col xs={4}>
-            <Row noGutters className="goback-container">
-              <div className="goback-button">
-                <IconButton
-                  component="a"
-                  onClick={this.goUp}
-                  color="inherit"
-                  className="sitemap-link"
-                >
-                  <ExpandLessIcon />
-                  <div className="goback-text">
-                    Back to top
-                  </div>
-                </IconButton>
-              </div>
+            <Row noGutters className="goback-container justify-content-end pr-3">
+            <a id="back-to-top" onClick={this.scrollToUp}> <ExpandLessIcon />
+                  Back to Top </a>
             </Row>
             <Row noGutters className="sitemap-container">
               <div>
@@ -146,7 +122,7 @@ class Footer extends Component<Props, State> {
                 key={index}
                 className='sitemap-link'
                 to={route.path}
-                onClick={this.goUp}
+                onClick={this.scrollToUp}
               >
                 <div className="navbar-btn-legend">
                   { route.legend }
@@ -159,13 +135,13 @@ class Footer extends Component<Props, State> {
               </div>
             </Row>
             <Row className="row-socialMedia">
-                <a href={'https://www.instagram.com/roborregos/'} className="icon-link">
+                <a target="_blank" href={'https://www.instagram.com/roborregos/'} className="icon-link">
                 <InstagramIcon style={{ fontSize: this.state.icon_size }} />
                 </a>
-                <a href={'https://www.facebook.com/RoBorregos/'} className="icon-link">
+                <a target="_blank" href={'https://www.facebook.com/RoBorregos/'} className="icon-link">
                 <FacebookIcon style={{ fontSize: this.state.icon_size }} />
                 </a>
-                <a href={'https://github.com/RoBorregos/'} className="icon-link">
+                <a target="_blank" href={'https://github.com/RoBorregos/'} className="icon-link">
                 <GitHubIcon style={{ fontSize: this.state.icon_size - 5 }} />
                 </a>
             </Row>
