@@ -20,7 +20,6 @@ type Props = {
 };
 
 class Contact extends Component<Props> {
-
   constructor(props: Props) {
     super(props)
   }

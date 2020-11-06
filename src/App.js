@@ -41,6 +41,8 @@ class App extends Component<Props> {
             <Route path="/candidates" component={() => <Candidates routes={routesData.routes}/>} />
             <Redirect to="/"/>
           </Switch>
+          /* TODO: find an optimal way to bring out the Footer component from every component
+           on to this file, just as Navbar is, this to avoid repeating code. */
         </div>
       </Router>
     )
