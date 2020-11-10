@@ -57,7 +57,7 @@ class Footer extends Component<Props, State> {
     return (
       <div className="footer-container">
         <Row className="footer-row">
-          <Col lg="4" className="col-logo">
+          <Col lg="4" className="col-logo mt-3">
             <img src={logo} className="footer-logo" alt="logo" />
           </Col>
           <Col lg={{ offset: 1 }} className="sitemap-container">
@@ -105,7 +105,7 @@ class Footer extends Component<Props, State> {
     return (
       <Container fluid className="footer-container">
         <Row noGutters className="footer-row">
-          <Col xs={8} className="col-logo">
+          <Col xs={8} className="col-logo mt-3">
             <img src={smallLogo} className="footer-logo" alt="logo" />
           </Col>
           <Col xs={4}>
