@@ -2,8 +2,9 @@
 import React from 'react'
 import { render, unmountComponentAtNode } from 'react-dom'
 import { act } from 'react-dom/test-utils'
+import 'intersection-observer'
 
-import App from './App'
+import About from './About'
 
 let container = null
 beforeEach(() => {
@@ -27,9 +28,9 @@ afterEach(() => {
   container = null
 })
 
-it('<App> Renders correctly with Title Name', () => {
+it('<About> Renders correctly with Title Name', () => {
   act(() => {
-    render(<App />, container)
+    render(<About />, container)
   })
-  expect(document.title).toBe('RoBorregos | Home')
+  expect(document.title).toBe('RoBorregos | About')
 })

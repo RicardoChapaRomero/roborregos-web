@@ -3,7 +3,7 @@ import React from 'react'
 import { render, unmountComponentAtNode } from 'react-dom'
 import { act } from 'react-dom/test-utils'
 
-import App from './App'
+import Home from './Home'
 
 let container = null
 beforeEach(() => {
@@ -27,9 +27,9 @@ afterEach(() => {
   container = null
 })
 
-it('<App> Renders correctly with Title Name', () => {
+it('<Home> Renders correctly with Title Name', () => {
   act(() => {
-    render(<App />, container)
+    render(<Home />, container)
   })
   expect(document.title).toBe('RoBorregos | Home')
 })

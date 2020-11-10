@@ -1,37 +1,42 @@
-import React, { Component } from 'react';
-import { Container, Row } from 'react-bootstrap';
-import AboutSingleTimelineEvent from './AboutSingleTimelineEvent/AboutSingleTimelineEvent.js';
-import { VerticalTimeline } from 'react-vertical-timeline-component';
-import './AboutTimeline.css';
+// @flow
+import React from 'react'
+import { Container, Row } from 'react-bootstrap'
+import { VerticalTimeline } from 'react-vertical-timeline-component'
+import AboutSingleTimelineEvent from './AboutSingleTimelineEvent/AboutSingleTimelineEvent'
+import './AboutTimeline.css'
 
-class AboutTimeline extends Component {
-  constructor(props) {
-    super(props);
+type Event = {
+    date: string,
+    img_path: string,
+    title: string,
+    description: string
+};
 
-    this.events = props.events;
-  }
+type Props = {
+  events: Array<Event>
+ };
 
-  render() {
-    return (
-      <div className='about-timeline-container'>
-        <Container fluid>
-          <Row className='justify-content-md-center' id='timeline-title'>
-            <h1>
-              Our Story
-            </h1>
-          </Row>
-          <VerticalTimeline>
-            { this.events.map((event, index) => (
-              <AboutSingleTimelineEvent
-                key={ index }
-                event={ event }
-              />
-            )) }
-          </VerticalTimeline>
-        </Container>
-      </div>
-    );
-  }
+const AboutTimeline = (props: Props) => {
+  const { events } = props
+  return (
+    <div className="about-timeline-container" test-id="1">
+      <Container fluid>
+        <Row className="justify-content-md-center" id="timeline-title">
+          <h1>
+            Our Story
+          </h1>
+        </Row>
+        <VerticalTimeline>
+          { events.map((event: Event, index: number) => (
+            <AboutSingleTimelineEvent
+              key={index}
+              event={event}
+            />
+          )) }
+        </VerticalTimeline>
+      </Container>
+    </div>
+  )
 }
 
-export default AboutTimeline;
+export default AboutTimeline

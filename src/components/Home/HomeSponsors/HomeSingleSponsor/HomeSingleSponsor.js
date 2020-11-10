@@ -1,36 +1,38 @@
-import React, { Component } from 'react'
+// @flow
+import React from 'react'
 import placeholder from '../../../../images/placeholder-rectangle.png'
 import './HomeSingleSponsor.css'
 
-class HomeSingleSponsor extends Component {
-  constructor(props) {
-    super(props)
+type SponsorType = {
+  name: string,
+  img_path: string,
+  link: string
+};
 
-    this.tryRequire = this.tryRequire.bind(this)
+type Props = {
+  sponsor: SponsorType
+};
 
-    this.sponsor = props.sponsor
-  }
-
-  tryRequire(img_path) {
+const HomeSingleSponsor = (props: Props) => {
+  const tryRequire = (img_path: string) => {
     try {
-      return require(`images/sponsors/${img_path}`)
+      // $FlowFixMe
+      return require(`images/sponsors/${img_path}`) // eslint-disable-line import/no-dynamic-require, global-require
     } catch (err) {
       return placeholder
     }
   }
-
-  render() {
-    return (
-      <a href={this.sponsor.link} className="single-sponsor">
-        <img
-          className="sponsor-image"
-          src={this.tryRequire(this.sponsor.img_path)}
-          alt={this.sponsor.name}
-        />
-        <div className="img-filter" />
-      </a>
-    )
-  }
+  const { sponsor } = props
+  return (
+    <a test-id="a1" href={sponsor.link} className="single-sponsor">
+      <img
+        className="sponsor-image"
+        src={tryRequire(sponsor.img_path)}
+        alt={sponsor.name}
+      />
+      <div className="img-filter" />
+    </a>
+  )
 }
 
 export default HomeSingleSponsor

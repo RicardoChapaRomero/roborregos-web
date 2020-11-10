@@ -25,7 +25,7 @@ class Home extends Component<Props> {
   }
 
   render() {
-    document.title = 'RoBorregos'
+    document.title = 'RoBorregos | Home'
     const {routes} = this.props
 
     return (

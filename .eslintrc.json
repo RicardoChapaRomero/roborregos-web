@@ -37,7 +37,8 @@
     "flowtype/require-parameter-type": [
       2,
       {
-        "excludeParameterMatch": "^_"
+        "excludeParameterMatch": "^_",
+        "excludeArrowFunctions": true
       }
     ],
     "flowtype/require-readonly-react-props": 0,

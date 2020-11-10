@@ -80,6 +80,7 @@ module.exports = {
     'ts',
     'tsx',
     'node',
+    'png'
   ],
 
   // A map from regular expressions to module names or to arrays of module names that

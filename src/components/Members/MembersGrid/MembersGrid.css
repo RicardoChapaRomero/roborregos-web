@@ -90,6 +90,10 @@
   color: 	rgba(223, 223, 223, 0.5);
 }
 
+.modal-container {
+  background-color: black;
+}
+
 @media (max-width: 768px) {
   .grid-title-text {
     font-size: 3vh;

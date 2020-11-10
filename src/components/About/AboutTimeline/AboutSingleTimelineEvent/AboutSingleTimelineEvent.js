@@ -1,55 +1,78 @@
-import React, { Component } from 'react'
+// @flow
+import React from 'react'
 import { VerticalTimelineElement } from 'react-vertical-timeline-component'
 import placeholder from '../../../../images/placeholder-rectangle.png'
 import 'react-vertical-timeline-component/style.min.css'
 import './AboutSingleTimelineEvent.css'
 
-class AboutSingleTimelineEvent extends Component {
-  constructor(props) {
+type StateProperties = {
+  hover: boolean
+};
+
+const defaultState: StateProperties = {
+  hover: false,
+}
+
+type Event = {
+  date: string,
+  img_path: string,
+  title: string,
+  description: string
+};
+
+type Props = {
+  event: Event
+};
+
+class AboutSingleTimelineEvent extends React.Component<Props, *> {
+  date: string;
+
+  year: string;
+
+  backgroundColor: string;
+
+  contentColor: string;
+
+  displayContent: string;
+
+  displayImg: string;
+
+  constructor(props: Props) {
     super(props)
+    const { event } = this.props
+    // this.event = event
 
-    this.resolveColor = this.resolveColor.bind(this)
-    this.resolvePosition = this.resolvePosition.bind(this)
-    this.resolvePropsValues = this.resolvePropsValues.bind(this)
-
-    this.tryRequire = this.tryRequire.bind(this)
-    this.handleHover = this.handleHover.bind(this)
-
-    this.id = props.id
-    this.event = props.event
-
-    this.date = this.event.date
+    this.date = event.date
     this.year = this.date.substr(this.date.length - 4)
     this.backgroundColor = this.resolveColor(this.year)
 
-    this.state = {
-      hover: false,
-    }
+    this.state = defaultState
   }
 
-  tryRequire(img_path) {
+  tryRequire = (img_path: string) => {
     try {
-      return require(`images/about/timeline/${img_path}`)
+      // $FlowFixMe
+      return require(`images/about/timeline/${img_path}`) // eslint-disable-line import/no-dynamic-require, global-require
     } catch (err) {
       return placeholder
     }
   }
 
-  resolveColor(year) {
+  resolveColor = (year: string) => {
     const colors = ['rgb(0, 178, 154)', 'rgb(238, 77, 122)', 'rgb(255, 130, 0)', 'rgb(155, 0, 250)']
-    return colors[year % 4]
+    return colors[parseInt(year, 10) % 4]
   }
 
-  resolvePosition(year) {
-    return parseInt(year) % 2 ? 'right' : 'left'
-  }
+  resolvePosition = (year: string) => (parseInt(year, 10) % 2 ? 'right' : 'left')
 
   handleHover() {
-    this.setState({ hover: !this.state.hover })
+    const { hover } = this.state
+    this.setState({ hover: !hover })
   }
 
   resolvePropsValues() {
-    if (this.state.hover) {
+    const { hover } = this.state
+    if (hover) {
       this.contentColor = this.backgroundColor
       this.displayContent = 'block'
       this.displayImg = 'none'
@@ -62,10 +85,10 @@ class AboutSingleTimelineEvent extends Component {
 
   render() {
     this.resolvePropsValues()
-
+    const { event } = this.props
     return (
       <VerticalTimelineElement
-        date={this.event.date}
+        date={event.date}
         position={this.resolvePosition(this.year)}
         iconStyle={{ background: this.backgroundColor, color: '#fff' }}
         contentStyle={{
@@ -76,28 +99,29 @@ class AboutSingleTimelineEvent extends Component {
         }}
         contentArrowStyle={{ borderRight: `7px solid ${this.contentColor}` }}
       >
-        <div className="timeline-element-img-container">
+        <div className="timeline-element-img-container" test-id="1">
           <img
             className="timeline-element-img"
-            src={this.tryRequire(this.event.img_path)}
-            alt={this.event.img_description}
+            src={this.tryRequire(event.img_path)}
+            alt={event.description}
           />
           <div className="timeline-element-img-title">
             <h3>
-              { this.event.title }
+              { event.title }
             </h3>
           </div>
         </div>
         <div
+          test-id="2"
           className="timeline-element-content"
           style={{ background: this.contentColor }}
         >
           <div>
             <h3>
-              { this.event.title }
+              { event.title }
             </h3>
             <p>
-              { this.event.description }
+              { event.description }
             </p>
           </div>
         </div>
