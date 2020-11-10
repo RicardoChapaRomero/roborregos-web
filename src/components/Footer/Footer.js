@@ -80,7 +80,7 @@ class Footer extends Component<Props, State> {
                   Back to Top </a>
           </Col>
         </Row>
-        <Row className="row-socialMedia justify-content-end">
+        <Row className="justify-content-end">
           <Col lg = "4" > 
                 <a target="_blank" href={'https://www.instagram.com/roborregos/'} className="icon-link">
                 <InstagramIcon style={{ fontSize: this.state.icon_size }} />
