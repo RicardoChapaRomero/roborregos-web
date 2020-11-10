@@ -6,6 +6,12 @@ import MembersJoinUs from './MembersJoinUs/MembersJoinUs'
 import Footer from '../Footer/Footer'
 import './Members.css'
 
+type RouteType = {
+  path: string,
+  legend: string,
+  component: string
+};
+
 type Member = {
   id: number,
   name: string,
@@ -28,6 +34,7 @@ type MembersData = {
 
 type Props = {
   membersData: MembersData
+  routes: Array<RouteType>
 };
 
 /** Component class of Members page. */
@@ -52,12 +59,13 @@ class Members extends Component <Props> {
     const inactive = this.members.filter((member) => member.status === 'inactive').sort((a, b) => b.id - a.id)
     const active = this.members.filter((member) => member.status === 'active'
       || member.status === 'comitee').sort((a, b) => a.id - b.id)
+    const myRoutes = this.props.routes
     return (
       <div className="members-container">
         <MembersHeader />
         <MembersGrid active_members={active} inactive_members={inactive} />
         <MembersJoinUs />
-        <Footer routes = {this.props.routes} />
+        <Footer routes = {myRoutes} />
       </div>
     )
   }

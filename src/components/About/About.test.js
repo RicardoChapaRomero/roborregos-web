@@ -3,6 +3,7 @@ import React from 'react'
 import { render, unmountComponentAtNode } from 'react-dom'
 import { act } from 'react-dom/test-utils'
 import 'intersection-observer'
+import routesData from './data/routes.json'
 
 import About from './About'
 
@@ -30,7 +31,7 @@ afterEach(() => {
 
 it('<About> Renders correctly with Title Name', () => {
   act(() => {
-    render(<About />, container)
+    render(<About routes ={routesData.routes}/>, container)
   })
   expect(document.title).toBe('RoBorregos | About')
 })

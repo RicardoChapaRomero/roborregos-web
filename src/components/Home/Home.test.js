@@ -2,6 +2,7 @@
 import React from 'react'
 import { render, unmountComponentAtNode } from 'react-dom'
 import { act } from 'react-dom/test-utils'
+import routesData from './data/routes.json'
 
 import Home from './Home'
 
@@ -29,7 +30,7 @@ afterEach(() => {
 
 it('<Home> Renders correctly with Title Name', () => {
   act(() => {
-    render(<Home />, container)
+    render(<Home routes = {routesData.routes}/>, container)
   })
   expect(document.title).toBe('RoBorregos | Home')
 })
