@@ -49,6 +49,18 @@ class AboutSingleTimelineEvent extends React.Component<Props, *> {
     this.state = defaultState
   }
 
+  handleHover() {
+    const { hover } = this.state
+    this.setState({ hover: !hover })
+  }
+
+  resolvePosition = (year: string) => (parseInt(year, 10) % 2 ? 'right' : 'left')
+
+  resolveColor = (year: string) => {
+    const colors = ['rgb(0, 178, 154)', 'rgb(238, 77, 122)', 'rgb(255, 130, 0)', 'rgb(155, 0, 250)']
+    return colors[parseInt(year, 10) % 4]
+  }
+
   tryRequire = (img_path: string) => {
     try {
       // $FlowFixMe
@@ -56,18 +68,6 @@ class AboutSingleTimelineEvent extends React.Component<Props, *> {
     } catch (err) {
       return placeholder
     }
-  }
-
-  resolveColor = (year: string) => {
-    const colors = ['rgb(0, 178, 154)', 'rgb(238, 77, 122)', 'rgb(255, 130, 0)', 'rgb(155, 0, 250)']
-    return colors[parseInt(year, 10) % 4]
-  }
-
-  resolvePosition = (year: string) => (parseInt(year, 10) % 2 ? 'right' : 'left')
-
-  handleHover() {
-    const { hover } = this.state
-    this.setState({ hover: !hover })
   }
 
   resolvePropsValues() {

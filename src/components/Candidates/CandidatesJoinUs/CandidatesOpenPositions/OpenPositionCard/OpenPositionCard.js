@@ -1,74 +1,79 @@
-import React, { Component } from 'react';
-import { Row, Col, Card } from 'react-bootstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCode, faMicrochip, faCog, faBullhorn } from '@fortawesome/free-solid-svg-icons';
-import './OpenPositionCard.css';
+// @flow
+import React, { Component } from 'react'
+import { Row, Col, Card } from 'react-bootstrap'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {
+  faCode, faMicrochip, faCog, faBullhorn,
+} from '@fortawesome/free-solid-svg-icons'
+import './OpenPositionCard.css'
 
-class OpenPositionCard extends Component {
-  constructor(props) {
-    super(props);
+type Position = {
+  id: string,
+  title: string,
+  shortDescription: string
+};
 
-    this.position = props.position;
+type Props = {
+  position: Position,
+  onClick: (position: Position) => void
+};
+
+class OpenPositionCard extends Component<Props> {
+  position: Position;
+
+  constructor(props: Props) {
+    super(props)
+    this.position = props.position
   }
 
   clicked = () => {
-    const pos = this.position;
-    this.props.onClick(pos);
+    const { onClick } = this.props
+    const pos = this.position
+    onClick(pos)
   }
 
-  tryRequire(id) {
-    id = parseInt(id);
-    switch (id) {
+  tryRequire = (id: string) => {
+    switch (parseInt(id, 10)) {
       case 1:
-        return faCode;
+        return faCode
       case 2:
-        return faMicrochip;
+        return faMicrochip
       case 3:
-        return faCog;
+        return faCog
       default:
-        return faBullhorn;
+        return faBullhorn
     }
   }
-
-
 
   render() {
     return (
       <Card
-        className='candidates-open-positions-card'
+        className="candidates-open-positions-card"
         key={this.position.id}
         onClick={this.clicked}
       >
-        <Card.Body >
+        <Card.Body>
           <Row>
-            <Col xs='3' sm='3' md='3' lg='3' xl='3' className='candidates-card-column-image-container'>
-              <div className='circle'>
-                <div className='icon-container'>
-                  <FontAwesomeIcon icon={ this.tryRequire(this.position.id) } size='2x' />
+            <Col xs="3" sm="3" md="3" lg="3" xl="3" className="candidates-card-column-image-container">
+              <div className="circle">
+                <div className="icon-container">
+                  <FontAwesomeIcon icon={this.tryRequire(this.position.id)} size="2x" />
                 </div>
               </div>
             </Col>
-            <Col className='candidates-card-column-text-container-overlay' xs='9' sm='9' md='9' lg='9' xl='9'>
-              <Card.Title className='candidates-card-title'>
+            <Col className="candidates-card-column-text-container-overlay-original" xs="9" sm="9" md="9" lg="9" xl="9">
+              <Card.Title className="candidates-card-title">
                 {this.position.title}
               </Card.Title>
-              <Card.Text className='candidates-card-text'>
-                {this.position.longDescription}
-              </Card.Text>
-            </Col>
-            <Col className='candidates-card-column-text-container-overlay-original' xs='9' sm='9' md='9' lg='9' xl='9'>
-              <Card.Title className='candidates-card-title'>
-                {this.position.title}
-              </Card.Title>
-              <Card.Text className='candidates-card-text'>
+              <Card.Text className="candidates-card-text">
                 {this.position.shortDescription}
               </Card.Text>
             </Col>
           </Row>
         </Card.Body>
       </Card>
-    );
+    )
   }
 }
 
-export default OpenPositionCard;
+export default OpenPositionCard

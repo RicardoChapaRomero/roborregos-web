@@ -16,19 +16,25 @@
             {
                 "title": "EAIBot B1 Smart Factory",
                 "description": "Development of an automated robotic warehouse system that retrieves, classifies and stores materials and products. Some tech areas involved include safety, object and person recognition, object manipulation, robot-robot communication/coordination and robot-human interaction/cooperation.",
-                "wiki": "",
+                "wiki": "https://www.youtube.com/watch?v=2Jw5t-hbkAU",
                 "image": "cobot"
             },
             {
-                "title": "LARC Open",
-                "description": "This project consists of the development of an autonomous robotic solution which ought to accomplish a task that reproduces the challenges of real-world robotics on a minor scale. The competition changes every year.",
-                "wiki": "https://www.youtube.com/watch?v=odfMA1n7vyY&t=7s",
-                "image": "larc_open"
+                "title": "Advanced Autonomous Drones",
+                "description": "This competition consists of several challenges where an autonomous drone has to use computer vision and control systems to take decisions of action.",
+                "wiki": "",
+                "image": "drones"
             }
         ],
     "carrousel":
     [
         [
+            {
+                "title": "LARC Open",
+                "description": "This project consists of the development of an autonomous robotic solution which ought to accomplish a task that reproduces the challenges of real-world robotics on a minor scale. The competition changes every year.",
+                "wiki": "https://www.youtube.com/watch?v=odfMA1n7vyY&t=7s",
+                "image": "larc_open"
+            },
             {
                 "title": "Rescue maze",
                 "description": "Simulation of a disaster area where the robot has to navigate through the majority of a maze, detect victims through different stimuli (heat and visual images) and evade obstacles.",
@@ -71,6 +77,13 @@
     ],
     "other":
         [
+            {
+                "title": "RoboCupido",
+                "wiki": "https://github.com/RoBorregos/RoboCupido",
+                "image": "robocupido",
+                "background": "#FDBFDA",
+                "color" : "black"
+            },
             {
                 "title": "RoboSearch",
                 "wiki": "https://roborregos.github.io/RoBoSearch-WebUI/",

@@ -1,115 +1,115 @@
 .projects-other {
-    height: 100%;
-    position: relative;
-    padding-bottom: 10vh;
-    background: linear-gradient(0deg, black 50%, white 50%);
+  position: relative;
+  padding-bottom: 10vh;
+  background: linear-gradient(0deg, black 30%, white 0%);
+}
+
+.other-info {
+    padding: 10vw;
+    padding-top: 17vh;
+    padding-bottom: 5vh;
+}
+
+.description-other {
+  font-size: 3vh;
+  text-transform: none;
+  padding-top: 2%;
+  padding-bottom: 0%;
+}
+
+.title-text-other {
+  font-size: 7vh;
+  text-transform: none;
+  color: black;
+}
+
+.other-project-tile-content {
+  border: 1vw solid black;
+  cursor: pointer;
+}
+
+.other-project-image {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  height: 30vh;
+  object-fit: cover;
+  /* margin-left: auto;
+  margin-right: auto; */
+}
+
+.project-title {
+  font-size: 3vh;
+  text-align: center;
+  color: black;
+  height: 5vh;
+  background-color: white;
+}
+
+.projects-other-grid {
+  width: 100%;
+  display: block;
+  overflow: hidden;
+  padding-left: 8vw;
+  padding-right: 8vw;
+  padding-bottom: 1vh;
+}
+
+@media (max-width: 1200px) {
+  .projects-other {
+    background: linear-gradient(0deg, black 50%, white 0%);
+  }
+}
+
+@media (max-width: 768px) {
+  .other-projects-small {
+    cursor: pointer;
+    height: 20vh;
+    padding:0%
+  }
+
+  .title-text-other {
+    text-align: center;
+    color: white;
+    font-size: 6vh;
   }
 
   .other-info {
-      padding: 10vw;
-      padding-top: 17vh;
-      padding-bottom: 5vh;
-  }
-  
-  .description-other {
-    font-size: 3vh;
-    text-transform: none;
-    padding-top: 2%;
-    padding-bottom: 0%;
-    color: black;
-  }
-  
-  .title-text-other {
-    font-size: 7vh;
-    text-transform: none;
-    color: black;
-  }
-
-  .project-title {
-    font-size: 3vh;
-    text-align: center;
-    color: black;
-    height: 5vh;
-    background-color: white;
-    width: 20.1vw;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .projects-other-grid {
-    /* background-color: chartreuse; */
-    width: 100%;
-    display: block;
-    overflow: hidden;
-    padding-left: 8vw;
-    padding-right: 8vw;
-    background: linear-gradient(0deg, black 50%, white 50%);
+    padding: 10vw;
+    padding-top: 5vh;
     padding-bottom: 1vh;
   }
 
+  .description-other {
+    font-size: 3.1vw;
+    text-align: center;
+    color: white;
+  }
+
   .other-project-image {
-    background-color: rgba(0, 0, 0, 0.5);
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 22vw;
-    height: 37vh;
-    border-top: 1vw solid black;
-    border-left: 1vw solid black;
-    border-right: 1vw solid black;
-    object-fit: cover;
-    cursor: pointer;
+    height: 20vh;
+    border: 0;
+    width: 100%;
+    padding: 0;
   }
 
-  @media (max-width: 768px) {
-    .other-projects-small {
-      cursor: pointer;
-    }
-
-    .title-text-other {
-      text-align: center;
-      color: white;
-      font-size: 6vh;
-    }
-
-    .other-info {
-      padding: 10vw;
-      padding-top: 5vh;
-      padding-bottom: 1vh;
-    }
-
-    .description-other {
-      font-size: 3.1vw;
-      text-align: center;
-      color: white;
-    }
-
-    .other-project-image {
-      height: 23vh;
-      border: 0;
-      width: 100%;
-      padding: 0;
-      background-color: transparent;
-    }
-
-    .projects-other {
-      padding: 0;
-      background: black;
-      color: white;
-    }
-
-    .project-title {
-      height: 23vh;
-      width: 100%;
-      font-size: 4vw;
-      text-align: center;
-      background-color: transparent;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
+  .projects-other {
+    padding: 0;
+    background: black;
+    color: white;
   }
+
+  .project-title {
+    height: 23vh;
+    width: 100%;
+    font-size: 4vw;
+    text-align: center;
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
 
   
   

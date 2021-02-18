@@ -1,7 +1,8 @@
 {
   "url_form": "https://docs.google.com/forms/u/0/",
   "url_facebook": "https://www.facebook.com/RoBorregos/",
-  "positions": [{
+  "positions":
+  [{
     "id": "1",
     "title": "Programmer",
     "shortDescription": "Interested in programming? Join the team to program the best robots. You don’t need to be an expert, all we want is passion to learn!"

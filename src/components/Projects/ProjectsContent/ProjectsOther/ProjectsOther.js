@@ -4,7 +4,7 @@ import './ProjectsOther.css'
 import GridList from '@material-ui/core/GridList'
 import GridListTile from '@material-ui/core/GridListTile'
 import { Row, Col, Container } from 'react-bootstrap'
-import { SMALL_WIDTH } from '../../../../constants'
+import { SMALL_WIDTH, LARGE_WIDTH } from '../../../../constants'
 
 type Project = {
   title: string,
@@ -152,29 +152,30 @@ class ProjectsOther extends Component<Props, State> {
         <div className="projects-other-grid">
           <GridList
             cellHeight="auto"
-            cols={3}
-            spacing={3}
+            cols={(window.innerWidth > LARGE_WIDTH) ? 4 : 2}
+            spacing={20}
           >
             {this.projects.map((project, index) => (
               <GridListTile
                 id={`other-project-${project.image}`}
                 key={index}
-                cols={1}
-                className="project-grid-tile"
                 onClick={() => this.learnMoreCallback(project.wiki)}
               >
-                <div>
+                <div
+                  className="other-project-tile-content"
+                  style={{ backgroundColor: project.background }}
+                >
                   <img
                     className="other-project-image"
                     src={this.tryRequire(`${project.image}.jpg`)}
                     alt={project.title}
-                    style={{ backgroundColor: project.background }}
+                    // style={{ backgroundColor: project.background }}
                   />
-                </div>
-                <div className="project-title">
-                  <p>
-                    {project.title}
-                  </p>
+                  <div className="project-title">
+                    <p>
+                      {project.title}
+                    </p>
+                  </div>
                 </div>
               </GridListTile>
             ))}

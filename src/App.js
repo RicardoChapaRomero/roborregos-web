@@ -11,7 +11,7 @@ import NavBar from './components/NavBar/NavBar'
 import About from './components/About/About'
 import routesData from './data/routes.json'
 import membersData from './data/members.json'
-import Projects from './components/Projects/Projects'
+import Project from './components/Projects/Projects'
 import projectsData from './data/projects.json'
 import Footer from './components/Footer/Footer'
 
@@ -37,7 +37,7 @@ class App extends Component<Props> {
 
           <Route path="/about" component={() => <About />} />
 
-          <Route path="/projects" component={() => <Projects projectsData={projectsData} />} />
+          <Route path="/projects" component={() => <Project projectsData={projectsData} />} />
 
           <Route path="/members" component={() => <Members membersData={membersData} />} />
 

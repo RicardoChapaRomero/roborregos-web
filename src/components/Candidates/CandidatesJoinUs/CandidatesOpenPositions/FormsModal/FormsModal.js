@@ -1,12 +1,34 @@
+// @flow
 import React, { Component } from 'react'
 import {
   Form, FormGroup, Label, Input, Row, Modal, ModalHeader, ModalBody, Button,
 } from 'reactstrap'
-import { sendJoinEmail } from '../../../../../scripts/apiScripts'
+import sendJoinEmail from '../../../../../scripts/apiScripts'
 import './FormsModal.css'
 
-class FormsModal extends Component {
-  constructor(props) {
+type SelectedPosition = {
+  title: string
+};
+
+type Props = {
+  selectedPosition: SelectedPosition,
+  isOpen: boolean,
+  toggle: () => void,
+  onSubmit: () => void
+};
+
+class FormsModal extends Component<Props> {
+  name: HTMLInputElement;
+
+  career: HTMLInputElement;
+
+  semester: HTMLInputElement;
+
+  matricualtionNumber: HTMLInputElement;
+
+  comments: HTMLInputElement;
+
+  constructor(props: Props) {
     super(props)
 
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -14,36 +36,34 @@ class FormsModal extends Component {
     this.getError = this.getError.bind(this)
   }
 
-  createMail() {
-    const emailBody = `Hola soy ${this.name.value} estudiante de ${this.career.value} de ${this.semester.value} semestre. \n${this.comments.value}`
-    return ({
-      message: emailBody,
-      from_name: this.name.value,
-      reply_to: `${this.matricualtionNumber.value}@itesm.mx`,
-      position: this.props.selectedPosition.title,
-    })
-  }
-
-  handleSubmit(event) {
+  handleSubmit = (event: SyntheticEvent<HTMLButtonElement>) => {
     event.preventDefault()
-    this.props.onSubmit()
-    if (this.name.value && this.career.value && this.semester.value && this.matricualtionNumber.value && this.comments.value) {
-      this.props.toggle()
+    const { onSubmit, toggle } = this.props
+    onSubmit()
+    if (this.name.value && this.career.value && this.semester.value
+      && this.matricualtionNumber.value && this.comments.value) {
+      toggle()
       const mailParams = this.createMail()
       sendJoinEmail(mailParams).then((result) => {
         if (result.status === 200) {
+          // eslint-disable-next-line no-alert
           alert('Thanks for your interest! \nCheck your Tec email \n')
         } else {
           throw new Error('Email-Server Error, Retry Later')
         }
       }, (error) => {
+        // eslint-disable-next-line no-alert
         alert(`Something went wrong! \n${error.text}`)
       })
     }
   }
 
-  getError() {
-    if (this.props.trySubmit && this.name && this.career && this.semester && this.matricualtionNumber && this.comments && (!this.name.value || !this.career.value || !this.semester.value || !this.matricualtionNumber.value || !this.comments.value)) {
+  getError = () => {
+    const trySubmit = this.props
+    if (trySubmit && this.name && this.career && this.semester
+      && this.matricualtionNumber && this.comments
+        && (!this.name.value || !this.career.value || !this.semester.value
+        || !this.matricualtionNumber.value || !this.comments.value)) {
       return (
         <Row className="mt-4 mb-1 justify-content-center">
           <p className="text-danger"> Please fill out the entire forms</p>
@@ -53,12 +73,28 @@ class FormsModal extends Component {
     return null
   }
 
+  createMail = () => {
+    const emailBody = `Hola soy ${this.name.value}
+      estudiante de ${this.career.value} de ${this.semester.value} semestre. \n
+      ${this.comments.value}`
+    const { selectedPosition } = this.props
+    return ({
+      message: emailBody,
+      from_name: this.name.value,
+      reply_to: `${this.matricualtionNumber.value}@itesm.mx`,
+      position: selectedPosition.title,
+    })
+  }
+
   render() {
-    const greeting = `Join us as ${this.props.selectedPosition.title}!`
+    const {
+      selectedPosition, isOpen, toggle,
+    } = this.props
+    const greeting = `Join us as ${selectedPosition.title}!`
 
     return (
-      <Modal id="candidates-join-modal" isOpen={this.props.isOpen} toggle={this.props.toggle}>
-        <ModalHeader toggle={this.props.toggleModal}>
+      <Modal id="candidates-join-modal" isOpen={isOpen} toggle={toggle}>
+        <ModalHeader toggle={toggle}>
           {' '}
           { greeting }
         </ModalHeader>
@@ -99,7 +135,6 @@ class FormsModal extends Component {
                   id="semester"
                   innerRef={(input) => { this.semester = input }}
                 >
-                  <option value="" />
                   <option value="1">1</option>
                   <option value="2">2</option>
                   <option value="3">3</option>
@@ -121,7 +156,10 @@ class FormsModal extends Component {
                 />
               </FormGroup>
             </Row>
-            <this.getError />
+            <>
+              {this.getError()}
+              {' '}
+            </>
             <Row className="mt-4 mb-1 justify-content-center">
               <Button className="mr-4 col-3 join" type="submit" value="submit">Join!</Button>
             </Row>
