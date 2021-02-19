@@ -152,7 +152,7 @@ class ProjectsOther extends Component<Props, State> {
         <div className="projects-other-grid">
           <GridList
             cellHeight="auto"
-            cols={(window.innerWidth > LARGE_WIDTH + 100) ? 4 : 2}
+            cols={(window.innerWidth > LARGE_WIDTH) ? 4 : 2}
             spacing={20}
           >
             {this.projects.map((project, index) => (

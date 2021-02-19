@@ -43,13 +43,6 @@ class CandidatesJoinUs extends Component<Props> {
           </Col>
         </Row>
         <CandidatesOpenPositions positionsData={this.positionsData} />
-        <Row>
-          <Col className="candidates-join-us-btn-container">
-            <button type="submit" onClick={this.joinUsCallback} className="candidates-join-us-btn" variant="outline-primary">
-              Talk with us!
-            </button>
-          </Col>
-        </Row>
       </div>
     )
   }
