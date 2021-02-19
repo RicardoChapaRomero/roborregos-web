@@ -55,7 +55,7 @@
   padding-bottom: 1vh;
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1300px) {
   .projects-other {
     background: linear-gradient(0deg, black 50%, white 0%);
   }
