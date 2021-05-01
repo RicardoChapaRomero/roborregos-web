@@ -10,7 +10,7 @@ const About = () => {
   return (
     <>
       <AboutHeader />
-      <AboutTimeline events={timelineData.events} />
+      <AboutTimeline events={timelineData.events} years={timelineData.years} />
     </>
   )
 }

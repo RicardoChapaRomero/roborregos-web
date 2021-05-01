@@ -1,23 +1,25 @@
 // @flow
 import React from 'react'
 import { Container, Row } from 'react-bootstrap'
-import { VerticalTimeline } from 'react-vertical-timeline-component'
-import AboutSingleTimelineEvent from './AboutSingleTimelineEvent/AboutSingleTimelineEvent'
+import HorizontalTimeline from './HorizontalTimeline'
 import './AboutTimeline.css'
 
 type Event = {
     date: string,
     img_path: string,
     title: string,
-    description: string
+    description: string,
+    year: number,
+    month: number
 };
 
 type Props = {
-  events: Array<Event>
+  events: Array<Event>,
+  years: Array<number>
  };
 
 const AboutTimeline = (props: Props) => {
-  const { events } = props
+  const { events, years } = props
   return (
     <div className="about-timeline-container" test-id="1">
       <Container fluid>
@@ -26,14 +28,7 @@ const AboutTimeline = (props: Props) => {
             Our Story
           </h1>
         </Row>
-        <VerticalTimeline>
-          { events.map((event: Event, index: number) => (
-            <AboutSingleTimelineEvent
-              key={index}
-              event={event}
-            />
-          )) }
-        </VerticalTimeline>
+        <HorizontalTimeline events={events} years={years} />
       </Container>
     </div>
   )
