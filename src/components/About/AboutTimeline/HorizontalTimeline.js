@@ -17,7 +17,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel'
 import FormControl from '@material-ui/core/FormControl'
 
 const eventsPerView = 3
-const eventsPerScroll = 1
+const eventsPerScroll = 3
 type Event = {
     date: string,
     img_path: string,
@@ -65,21 +65,14 @@ function HorizontalTimeline(props: Props) {
 
   const handleYearChange = (event) => {
     const year = parseInt(event.target.value)
-    setSelectedYear(year)
     const selectedIndexFromYear = events.findIndex((roborregosEvent) => roborregosEvent.year === year)
-    setSelectedIndex(selectedIndexFromYear)
     mySlider.slickGoTo(selectedIndexFromYear)
   }
 
   const SamplePrevArrow = () => (
     <button
       type="button"
-      onClick={() => {
-        const newIndex = (selectedIndex - eventsPerScroll) >= 0 ? (selectedIndex - eventsPerScroll) : events.length + (selectedIndex - eventsPerScroll)
-        setSelectedIndex(newIndex)
-        setSelectedYear(events[newIndex].year)
-        mySlider.slickPrev()
-      }}
+      onClick={mySlider?.slickPrev}
     >
       {' '}
       prevArrow
@@ -88,12 +81,7 @@ function HorizontalTimeline(props: Props) {
   const SampleNextArrow = () => (
     <button
       type="button"
-      onClick={() => {
-        const newIndex = (selectedIndex + eventsPerScroll) >= events.length ? 0 : (selectedIndex + eventsPerScroll)
-        setSelectedIndex(newIndex)
-        setSelectedYear(events[newIndex].year)
-        mySlider.slickNext()
-      }}
+      onClick={mySlider?.slickNext}
     >
       {' '}
       nextArrow
@@ -109,6 +97,10 @@ function HorizontalTimeline(props: Props) {
     initialSlide: 0,
     nextArrow: <SampleNextArrow />,
     prevArrow: <SamplePrevArrow />,
+    afterChange: (current) => {
+      setSelectedIndex(current)
+      setSelectedYear(events[current].year)
+    },
     selectedIndex,
   }
   const singleDot = (year: string) => (
