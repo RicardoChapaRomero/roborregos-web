@@ -60,7 +60,6 @@ function HorizontalTimeline(props: Props) {
   const { events, years } = props
   events.sort((a, b) => new Date(a.year, a.month, 1) - new Date(b.year, b.month, 1))
   const [selectedYear, setSelectedYear] = React.useState(years[0])
-  const [selectedIndex, setSelectedIndex] = React.useState(0)
   const [mySlider, setSlider] = React.useState(null)
 
   const handleYearChange = (event) => {
@@ -98,10 +97,8 @@ function HorizontalTimeline(props: Props) {
     nextArrow: <SampleNextArrow />,
     prevArrow: <SamplePrevArrow />,
     afterChange: (current) => {
-      setSelectedIndex(current)
       setSelectedYear(events[current].year)
     },
-    selectedIndex,
   }
   const singleDot = (year: string) => (
     <FormControlLabel
