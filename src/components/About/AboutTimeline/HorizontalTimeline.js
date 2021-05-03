@@ -50,6 +50,7 @@ const singleItem = (event: Event) => (
     <div className="my-info">
       {event.title}
     </div>
+    // TODO add event.description
   </Card>
 )
 
