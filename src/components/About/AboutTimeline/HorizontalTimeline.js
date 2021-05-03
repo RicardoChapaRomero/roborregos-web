@@ -11,6 +11,7 @@ import 'slick-carousel/slick/slick-theme.css'
 import './HorizontalTimeline.css'
 import Card from '@material-ui/core/Card'
 import CardMedia from '@material-ui/core/CardMedia'
+import { MEDIUM_WIDTH } from '../../../constants'
 
 const eventsPerView = 3
 const eventsPerScroll = 3
@@ -50,7 +51,14 @@ const singleItem = (event: Event) => (
     <div className="my-info">
       {event.title}
     </div>
-    // TODO add event.description
+    <Row id="event-content">
+      <h3>
+        { event.date }
+      </h3>
+      <p>
+        { event.description }
+      </p>
+    </Row>
   </Card>
 )
 
@@ -133,7 +141,7 @@ function HorizontalTimeline(props: Props) {
     },
     responsive: [
       {
-        breakpoint: 900,
+        breakpoint: MEDIUM_WIDTH,
         settings: {
           slidesToShow: eventsPerView - 1,
           slidesToScroll: eventsPerScroll > 1 ? eventsPerScroll - 1 : eventsPerScroll,
