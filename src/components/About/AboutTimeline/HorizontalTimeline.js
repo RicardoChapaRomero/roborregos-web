@@ -52,11 +52,11 @@ const singleItem = (event: Event, height: number) => (
     <div className="my-info">
       {event.title}
     </div>
-    <Row id="event-content">
-      <h3>
+    <Row id="event-content" className="justify-content-center">
+      <h3 className="mt-4">
         { event.date }
       </h3>
-      <p>
+      <p className="col-11">
         { event.description }
       </p>
     </Row>

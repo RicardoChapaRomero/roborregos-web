@@ -112,13 +112,9 @@ width: 80%;
       -o-transition: all 0.3s ease-out;
       -ms-transition: all 0.3s ease-out;
       transition: all 0.3s ease-out;
-      padding: 5%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
       text-align: center;
-    }
-    
+}
+
 .myCard:hover #event-content {
 opacity: 0.95;
 
