@@ -5,7 +5,7 @@ import { loadCSS } from 'fg-loadcss/src/loadCSS'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import Home from './components/Home/Home'
 import Members from './components/Members/Members'
-import Contact from './components/Contact/Contact'
+import SupportUs from './components/SupportUs/SupportUs'
 import Candidates from './components/Candidates/Candidates'
 import NavBar from './components/NavBar/NavBar'
 import About from './components/About/About'
@@ -43,7 +43,7 @@ class App extends Component<Props> {
 
           <Route path="/candidates" component={() => <Candidates />} />
 
-          <Route path="/contact" component={() => <Contact />} />
+          <Route path="/support-us" component={() => <SupportUs />} />
 
           <Footer />
         </div>
