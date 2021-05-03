@@ -1,0 +1,55 @@
+.packages-card {
+  height: 100%;
+  background-color: #13191E;
+  border-radius: 6px;
+  border: none;
+  -webkit-transition: all .3s ease-in, all .3s ease-out;
+  transition: all .3s ease-in, all .3s ease-out;
+  padding-bottom: 40px;
+}
+
+.packages-card:hover {
+  -webkit-box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.5) !important;
+  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.5) !important;
+}
+
+hr {
+  border-color: white !important;
+}
+
+.benefit-container {
+  display: flex;
+  flex-direction: row;
+  text-align: left;
+  margin-bottom: 10px;
+}
+
+.benefit-icon {
+  color: #4F72B8;
+  font-size: 25px;
+}
+
+.benefit-text {
+  font-size: 13px;
+}
+
+.package-card-footer {
+  display: flex;
+  position: absolute;
+  bottom: 7px;
+  left: 0px;
+}
+
+.package-card-footer img {
+  width: 100%;
+}
+
+.package-card-footer .no-padding {
+  padding: 10px;
+}
+
+@media (min-width: 1500px) {
+  .package-card-footer img {
+    width: 70%
+  }
+}

@@ -10,24 +10,16 @@ type ColorScheme = {
     secondary: string
 };
 
-type AdditionalButton = {
-    text: string,
-    bgColor: string,
-    borderColor: string,
-    onClick: () => void
-};
-
 type Props = {
     title: string,
     mainText: Array<string>,
     subText: Array<string>,
     bgColorScheme: ColorScheme,
-    iconColorScheme: ColorScheme,
-    additionalButton?: ?AdditionalButton
+    iconColorScheme: ColorScheme
 };
 
 function HeaderBanner({
-  title, mainText, subText, bgColorScheme, iconColorScheme, additionalButton,
+  title, mainText, subText, bgColorScheme, iconColorScheme,
 }: Props) {
   const [iconColor, setIconColor] = useState(iconColorScheme.primary)
 
@@ -69,21 +61,6 @@ function HeaderBanner({
             { parseText(mainText) }
           </p>
         </div>
-        { additionalButton && additionalButton !== null ? (
-          <button
-            onClick={additionalButton.onClick}
-            type="button"
-            className="additional-button"
-            style={{
-              backgroundColor: additionalButton.bgColor,
-              border: `1px solid ${additionalButton.borderColor}`,
-            }}
-          >
-            {' '}
-            {additionalButton.text}
-            {' '}
-          </button>
-        ) : null }
       </div>
       <div className="footer">
         <p>
@@ -100,10 +77,6 @@ function HeaderBanner({
       </div>
     </div>
   )
-}
-
-HeaderBanner.defaultProps = {
-  additionalButton: null,
 }
 
 export default HeaderBanner

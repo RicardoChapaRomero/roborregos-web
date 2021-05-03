@@ -6,7 +6,7 @@
 }
 
 .contact-competitions-title {
-  padding: 20px 4vw 40px 4vw;
+  padding: 20px 0 40px 0;
   justify-content: center;
   text-align: center;
   font-size: 23px;
@@ -25,7 +25,6 @@
 .competitions-text {
   padding: 15px 0 20px 0;
   justify-content: center;
-  text-align: center;
   font-size: 18px;
   color: white;
 }

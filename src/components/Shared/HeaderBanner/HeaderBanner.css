@@ -51,17 +51,3 @@
     font-size: 30px;
   }
   
-  .additional-button{
-    cursor: pointer;
-    border-radius: 8px;
-    color: white;
-    transition: 0.3s;
-    font-size: 3vh;
-    height: 8vh;
-    padding-left: 5%;
-    padding-right: 5%;
-}
-
-  .additional-button:hover {
-    transform: scale(1.05);
-}
