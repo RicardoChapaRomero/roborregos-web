@@ -1,3 +1,7 @@
+#horizontal-timeline{
+      position:relative;
+      float:left;
+}
 .myCard {
       background-color: transparent  !important;
       width: 90%  !important;
@@ -11,8 +15,9 @@
       bottom: 0;
       width: 100%;
       height: 15%;
-      color: rgba(255, 255, 255);
-      background-color: rgba(0, 0, 0);
+      color: white;
+      background-color: palevioletred;
+      opacity: 0.9;
       text-align: center;
       font-size: 1.2rem;
       align-items: center;
@@ -25,5 +30,69 @@
       transform: rotate(-12);
       transform: fade(0.5);
       transform: darken (0.2);
-      box-shadow: 0 6px 12px 0;
+      box-shadow: 0 3px 5px 0;
+      transform: scale(1.03,1.03);
+      color: rgba(211, 211, 211, 0.336);
 }
+
+    .slick-prev:before, .slick-next:before { font-family: "slick"; font-size: 40px; line-height: 1; color: white; opacity: 0.75; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }   
+
+    .slick-prev:before { content: "‹"; }
+    [dir="rtl"] .slick-prev:before { content: "›"; }
+    
+    [dir="rtl"] .slick-next { left: -10px; top: 70px; right: auto; }
+    .slick-next:before { content: "›"; }
+    [dir="rtl"] .slick-next:before { content: "‹"; }
+
+    .timeline {
+      margin: 20px 0 60px 0;
+      height: 1px;
+      background-color: white;
+      width: 80%;
+    }
+    
+    .timeline-progress {
+          width: 0;
+          height: 100%;
+          background-color: palevioletred;
+    }
+    
+    .timeline-items {
+          margin-left: -10px;
+          margin-right: -10px;
+          margin-top: -9px;
+          display: flex;
+          justify-content: space-between;
+    }
+    
+    .timeline-item {
+          position: relative;
+          cursor: pointer;
+    }
+    
+    .timeline-item::before {
+          content: '';
+          width: 17px;
+          height: 17px;
+          background-color: white;
+          display: block;
+          border-radius: 100%;
+    }
+    
+    .timeline-content {
+          position: absolute;
+          top: 20px;
+          left: 50%;
+          transform: translateX(-50%);
+          background-color: transparent;
+          width: 100px;
+          padding: 5px 10px;
+          border-radius: 5px;
+          text-align: center;
+          font-size: 0.9rem;
+    }
+
+    .timeline-item.active::before {
+          background-color: palevioletred;
+    }
+    

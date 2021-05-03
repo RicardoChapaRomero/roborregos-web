@@ -11,13 +11,10 @@ import 'slick-carousel/slick/slick-theme.css'
 import './HorizontalTimeline.css'
 import Card from '@material-ui/core/Card'
 import CardMedia from '@material-ui/core/CardMedia'
-import Radio from '@material-ui/core/Radio'
-import RadioGroup from '@material-ui/core/RadioGroup'
-import FormControlLabel from '@material-ui/core/FormControlLabel'
-import FormControl from '@material-ui/core/FormControl'
 
 const eventsPerView = 3
 const eventsPerScroll = 3
+
 type Event = {
     date: string,
     img_path: string,
@@ -62,35 +59,69 @@ function HorizontalTimeline(props: Props) {
   const [selectedYear, setSelectedYear] = React.useState(years[0])
   const [mySlider, setSlider] = React.useState(null)
 
-  const handleYearChange = (event) => {
-    const year = parseInt(event.target.value)
+  const handleYearChange = (year: number) => {
+    setSelectedYear(year)
     const selectedIndexFromYear = events.findIndex((roborregosEvent) => roborregosEvent.year === year)
     mySlider.slickGoTo(selectedIndexFromYear)
   }
 
   const SamplePrevArrow = () => (
-    <button
-      type="button"
+    <div
+      className="slick-prev"
       onClick={mySlider?.slickPrev}
-    >
-      {' '}
-      prevArrow
-    </button>
+    />
   )
+
   const SampleNextArrow = () => (
-    <button
-      type="button"
+    <div
+      className="slick-next"
       onClick={mySlider?.slickNext}
-    >
-      {' '}
-      nextArrow
-    </button>
+    />
   )
+
+  const Timeline = () => {
+    const totalItems = years.length
+    const numberOfActiveItems = years.findIndex((year) => year === selectedYear) + 1
+    const progressBarWidth = totalItems > 1 ? 100 * (numberOfActiveItems - 1) / (totalItems - 1) : 0
+
+    return (
+      <div className="timeline">
+        <div className="timeline-progress" style={{ width: `${progressBarWidth}%` }} />
+        <div className="timeline-items">
+          {years.map((item, i) => (
+            <div onClick={() => handleYearChange(item)} key={i} className={`timeline-item${i < numberOfActiveItems ? ' active' : ''}`}>
+              <div className="timeline-content">
+                {item}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    )
+  }
+
+  const TimelineNoProgress = () => {
+    const activeItem = years.findIndex((year) => year === selectedYear)
+
+    return (
+      <div className="timeline">
+        <div className="timeline-items">
+          {years.map((item, i) => (
+            <div onClick={() => handleYearChange(item)} key={i} className={`timeline-item${i === activeItem ? ' active' : ''}`}>
+              <div className="timeline-content">
+                {item}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    )
+  }
 
   const settings = {
     dots: false,
     infinite: true,
-    speed: 500,
+    speed: 1300,
     slidesToShow: eventsPerView,
     slidesToScroll: eventsPerScroll,
     initialSlide: 0,
@@ -99,29 +130,27 @@ function HorizontalTimeline(props: Props) {
     afterChange: (current) => {
       setSelectedYear(events[current].year)
     },
+    responsive: [
+      {
+        breakpoint: 900,
+        settings: {
+          slidesToShow: eventsPerView - 1,
+          slidesToScroll: eventsPerScroll > 1 ? eventsPerScroll - 1 : eventsPerScroll,
+          infinite: true,
+          dots: false,
+        },
+      },
+    ],
   }
-  const singleDot = (year: string) => (
-    <FormControlLabel
-      value={year}
-      checked={year === selectedYear}
-      onClick={handleYearChange}
-      control={<Radio color="primary" />}
-      label={year}
-      labelPlacement="bottom"
-    />
-  )
+
   return (
     <Row className="justify-content-center">
-      <Col xs={10}>
-        <Slider ref={setSlider} id="horizontal-timeline" {...settings}>
+      <Col id="horizontal-timeline" xs={11}>
+        <Slider ref={setSlider} {...settings}>
           { events.map(singleItem) }
         </Slider>
-        <FormControl component="fieldset">
-          <RadioGroup row aria-label="position" name="position" defaultValue="top">
-            {years.map(singleDot)}
-          </RadioGroup>
-        </FormControl>
       </Col>
+      <Timeline />
     </Row>
   )
 }
