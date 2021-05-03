@@ -12,6 +12,7 @@ import './HorizontalTimeline.css'
 import Card from '@material-ui/core/Card'
 import CardMedia from '@material-ui/core/CardMedia'
 import { MEDIUM_WIDTH } from '../../../constants'
+import useWindowSize from '../../../hooks/useWindowSize'
 
 const eventsPerView = 3
 const eventsPerScroll = 3
@@ -39,11 +40,11 @@ const tryRequire = (imgPath: string) => {
     return imgPath
   }
 }
-const singleItem = (event: Event) => (
+const singleItem = (event: Event, height: number) => (
   <Card className="myCard">
     <CardMedia
       component="img"
-      height="350"
+      height={height}
       image={tryRequire(event.img_path)}
       alt={event.title}
       title={event.title}
@@ -67,6 +68,7 @@ function HorizontalTimeline(props: Props) {
   events.sort((a, b) => new Date(a.year, a.month, 1) - new Date(b.year, b.month, 1))
   const [selectedYear, setSelectedYear] = React.useState(years[0])
   const [mySlider, setSlider] = React.useState(null)
+  const { height } = useWindowSize()
 
   const handleYearChange = (year: number) => {
     setSelectedYear(year)
@@ -156,7 +158,7 @@ function HorizontalTimeline(props: Props) {
     <Row className="justify-content-center">
       <Col id="horizontal-timeline" xs={11}>
         <Slider ref={setSlider} {...settings}>
-          { events.map(singleItem) }
+          { events.map((e) => singleItem(e, height * 0.5)) }
         </Slider>
       </Col>
       <Timeline />
