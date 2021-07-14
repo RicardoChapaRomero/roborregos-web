@@ -19,7 +19,7 @@
 }
 
 .members-values-card-overlay {
-  opacity: 100%;
+  opacity: 1;
   background: linear-gradient(-45deg, rgba(0,0,0,0.7), rgba(0,0,0,0));
   position: absolute;
   width: 100%;
@@ -39,7 +39,7 @@
 }
 
 .members-values-card:hover > .members-values-card-title {
-  opacity: 100%;
+  opacity: 1;
   transition: opacity 0.5s ease-in;
 }
 
@@ -52,7 +52,7 @@
 }
 
 .members-values-card:hover > .members-values-card-text {
-  opacity: 100%;
+  opacity: 1;
   transition: opacity 0.5s ease-in;
 }
 
@@ -86,7 +86,7 @@
 
   .members-values-card-title {
     font-size: 6vw;
-    opacity: 100%;
+    opacity: 1;
     padding-bottom: 0;
   }
 
@@ -109,7 +109,7 @@
     text-align: inherit;
     word-wrap: break-word;
     margin: 0;
-    opacity: 100%;
+    opacity: 1;
     font-size: 4vw;
   }
 
