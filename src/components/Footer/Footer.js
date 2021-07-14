@@ -34,8 +34,8 @@ const sitemaps = [
     text: 'Candidates',
   },
   {
-    link: '/contact',
-    text: 'Contact',
+    link: '/support-us',
+    text: 'Support Us',
   },
 ]
 

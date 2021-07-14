@@ -26,3 +26,7 @@ yarn-error.log*
 
 .bash_history
 /docker-compose.override.yml
+public/mail/config.php
+
+# Other Files
+package-lock.json

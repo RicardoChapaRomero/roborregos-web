@@ -19,7 +19,6 @@ type Member = {
   github: string,
   github_user: string,
   linkedin: string,
-  resume_link: string,
   description: string,
   class: string,
   semesters: string,
@@ -87,11 +86,6 @@ class MemberModal extends Component<Props, State> {
         icon = 'fa-linkedin'
         user = 'LinkedIn'
         break
-      case 'resume':
-        href = this.member.resume_link
-        icon = 'fa-file-pdf'
-        user = 'Resume'
-        break
       default:
         break
     }
@@ -144,7 +138,7 @@ class MemberModal extends Component<Props, State> {
   */
   generateDataButtons() {
     const { show_large } = this.state
-    const { github, linkedin, resume_link } = this.member
+    const { github, linkedin } = this.member
     let className = ''
     if (show_large) {
       className = 'member-modal-btn'
@@ -159,8 +153,6 @@ class MemberModal extends Component<Props, State> {
         { (linkedin !== '')
           ? this.getContactButton('linkedin', className) : null }
         <br />
-        { (resume_link !== '')
-          ? this.getContactButton('resume', className) : null }
       </div>
     )
   }

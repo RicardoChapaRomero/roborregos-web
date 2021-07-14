@@ -1,20 +1,28 @@
-/*
-  TODO: Replace linear-gradient with pattern img.
-*/
 .about-timeline-container {
-  background: linear-gradient(45deg, rgba(0, 0, 0, 0.9) 100%, rgba(61, 61, 61, 0.9) 30%);
+  background: black;
   color: white;
 }
 
 #timeline-title {
-  padding: 20px 0;
+  padding: 5vh 0 0 0;
 }
-
+#timeline-title > h1{
+  font-size: 5vh;
+}
+.timeline-content{
+  font-size: 2vh;
+}
 .timeline-element-img {
   width: 100%;
   border-radius: 3px;
 }
 
 .timeline-element-container {
-  padding: 20px;
+  padding: 2vh;
+}
+
+@media (min-width: 769px) {
+  .about-timeline-container {
+    height: 95vh;
+  }
 }

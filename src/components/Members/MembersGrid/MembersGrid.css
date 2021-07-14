@@ -11,6 +11,33 @@
   padding: 1.5px;
 }
 
+.members-grid-search-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 5vh 5vw 3vh 5vw;
+  background: #545454;
+  border-radius: 20px;
+  padding: 1vh 2vw;
+  color: #aaa;
+}
+
+.members-grid-search-bar-input {
+  flex-grow: 1;
+  background: inherit;
+  border: none;
+  padding-left: 1vw;
+  outline: none;
+  color: #eee;
+  text-overflow: ellipsis;
+  font-size: 3vh;
+  width: 100%;
+}
+
+.members-search-bar-icon {
+  font-size: 3vh;
+}
+
 .grid-title {
   position: relative;
   padding: 4% 0 2%;
@@ -97,5 +124,13 @@
 @media (max-width: 768px) {
   .grid-title-text {
     font-size: 3vh;
+  }
+
+  .members-grid-search-bar-input {
+    padding-left: 3vw;
+  }
+
+  .members-grid-search-bar {
+    padding-left: 4vw;
   }
 }

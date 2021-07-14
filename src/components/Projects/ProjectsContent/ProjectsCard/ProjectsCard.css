@@ -1,12 +1,31 @@
+.scroll-next {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 0;
+}
+
+.scroll-next-icon {
+    font-size: 5vh;
+    color: #00FFFA;
+    padding-top: 0;
+    height: 12vh;
+}
+
+.scroll-next-icon:hover {
+    color: #2870CE;
+    cursor: pointer;
+  }
+
 .projects-card {
     color: rgba(255, 255, 255, 0.8);
-    height: 80vh;
+    height: 83vh;
     display: flex;
     align-items: center;
+    padding-top: 5vh;
   }
 
 .card-info {
-    padding-top: 15vh;
     padding-left: 5vw;
     padding-right: 5vw;
     height: fit-content;
@@ -26,13 +45,12 @@
 }
 
 .card-image {
-    padding-top: 10vh;
     margin-top: auto;
     margin-bottom: auto;
     margin-left: auto;
     margin-right: auto;
-    max-height: 100%;
-    max-width: 100%;
+    height: 75vh;
+    width: 45vw;
     object-fit: cover
 }
 

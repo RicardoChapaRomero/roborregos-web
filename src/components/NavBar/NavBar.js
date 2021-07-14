@@ -125,17 +125,15 @@ class NavBar extends Component<Props, State> {
               </Nav.Link>
             ))}
             <Navbar.Brand id="navbar-legend-div" onClick={() => { window.open('https://www.steren.com.mx/') }}>
-              <div>
-                <p id="navbar-legend">
-                  <img
-                    id="navbar-sponsor-logo"
-                    src={sponsor_logo}
-                    className="d-inline-block align-top"
-                    alt="logo"
-                  />
-                  Powered by
-                </p>
-              </div>
+              <p id="navbar-legend">
+                Powered by
+                <img
+                  id="navbar-sponsor-logo"
+                  src={sponsor_logo}
+                  className="d-inline-block align-top"
+                  alt="logo"
+                />
+              </p>
             </Navbar.Brand>
           </Nav>
         </Navbar.Collapse>

@@ -26,9 +26,9 @@
       "component": "Candidates"
     },
     {
-      "path": "/contact",
-      "legend": "Contact",
-      "component": "Contact"
+      "path": "/support-us",
+      "legend": "Support Us",
+      "component": "SupportUs"
     }
   ]
 }

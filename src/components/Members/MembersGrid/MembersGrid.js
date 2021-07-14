@@ -1,16 +1,16 @@
 /* eslint-disable import/no-dynamic-require */
 /* eslint-disable global-require */
 // @flow
-import React, { Component } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import Carousel from 'react-material-ui-carousel'
 import GridList from '@material-ui/core/GridList'
 import GridListTile from '@material-ui/core/GridListTile'
 import { Modal } from 'react-bootstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
-  faCog, faCode, faBullhorn, faMicrochip, faRocket,
-}
-  from '@fortawesome/free-solid-svg-icons'
+  faCog, faCode, faBullhorn, faMicrochip, faRocket, faSearch,
+} from '@fortawesome/free-solid-svg-icons'
+import membersData from '../../../data/members.json'
 import placeholder from '../../../images/placeholder-rectangle.png'
 import { LARGE_WIDTH, MEDIUM_WIDTH, MOBILE_WIDTH } from '../../../constants'
 import MemberModal from './MemberModal/MemberModal'
@@ -32,62 +32,130 @@ type Member = {
   role: string
 };
 
-type Props = {
-  active_members: Array<Member>,
-  inactive_members: Array<Member>
-};
+const inactiveMembers = membersData.members.filter((member) => member.status === 'inactive')
+const activeMembers = membersData.members.filter((member) => member.status === 'active' || member.status === 'comitee')
 
-type State = {
-  show_modal: boolean,
-  member: Member,
-  active: boolean,
-  number_of_columns: number
-};
+const numberOfGridCols = () => {
+  if (window.innerWidth >= LARGE_WIDTH) {
+    return 5
+  }
+  if (window.innerWidth >= MEDIUM_WIDTH) {
+    return 4
+  }
+  if (window.innerWidth >= MOBILE_WIDTH) {
+    return 3
+  }
+  return 2
+}
 
-/** Component class of Members' grid. */
-class MembersGrid extends Component<Props, State> {
-  active_members_keys: Array<number>;
+const tryRequire = (imgPath: string) => {
+  try {
+    return require(`../../../images/members/${imgPath}`)
+  } catch (err) {
+    return placeholder
+  }
+}
 
-  inactive_members_keys: Array<number>;
+function MembersGrid() {
+  const [showModal, setShowModal] = useState(false)
+  const [memberIndex, _setMemberIndex] = useState(0)
+  const [active, setActive] = useState(true)
+  const [gridCols, setGridCols] = useState(numberOfGridCols())
+  const [searchBarText, setSearchBarText] = useState('')
+  const [filteredMembers, setFilteredMembers] = useState([])
 
-  /**
-  * Class constructor
-  * @param {list} props: Lists of active and inactive members.
-  */
-  constructor(props: Props) {
-    super(props)
-    this.handleShowModal = this.handleShowModal.bind(this)
-    this.handleHideModal = this.handleHideModal.bind(this)
-    this.updateNumberOfColumns = this.updateNumberOfColumns.bind(this)
-    this.generateGridList = this.generateGridList.bind(this)
-    this.keyFunction = this.keyFunction.bind(this)
-    this.carouselItem = this.carouselItem.bind(this)
-    this.updateMember = this.updateMember.bind(this)
-    this.changeMemberUIArrows = this.changeMemberUIArrows.bind(this)
-    this.active_members_keys = props.active_members.map((member) => (member.id))
-    this.inactive_members_keys = props.inactive_members.map((member) => (member.id))
-    this.state = {
-      show_modal: false,
-      member: props.active_members[0],
-      active: true,
-      number_of_columns: this.numberOfColumns(),
+  const extendKeywordSearch = (keywords: Array<string>, index: number, field: string) => {
+    let i = index
+    if (i + 1 < keywords.length) {
+      let j = i + 1
+      let substr = `${keywords[i]} ${keywords[j]}`
+      while (j < keywords.length && field.toLowerCase().startsWith(substr)) {
+        substr += ` ${keywords[j]}`
+        j += 1
+      }
+      i = j - 1
     }
+    return i
   }
 
-  /**
-  * Adds key and resizing listeners
-  */
-  componentDidMount() {
-    document.addEventListener('keydown', this.keyFunction, false)
-    window.addEventListener('resize', this.updateNumberOfColumns)
+  useEffect(() => {
+    const keywords = searchBarText.toLowerCase().split(' ')
+    setFilteredMembers(membersData.members.filter((member) => {
+      let name = true; let lastname = true; let role = true
+      for (let i = 0; i < keywords.length; i += 1) {
+        if (name && member.name.toLowerCase().startsWith(keywords[i])) {
+          i = extendKeywordSearch(keywords, i, member.name)
+          name = false
+        } else if (lastname && member.lastname.toLowerCase().startsWith(keywords[i])) {
+          i = extendKeywordSearch(keywords, i, member.lastname)
+          lastname = false
+        } else if (role && member.role.toLowerCase().startsWith(keywords[i])) {
+          i = extendKeywordSearch(keywords, i, member.role)
+          role = false
+        } else {
+          const tags = member.tags.toLowerCase().split(', ')
+          let matchTag = false
+          let k = i
+          for (let j = 0; j < tags.length; j += 1) {
+            if (tags[j].startsWith(keywords[i])) {
+              k = Math.max(extendKeywordSearch(keywords, i, tags[j]), k)
+              matchTag = true
+            }
+          }
+          i = k
+          if (!matchTag) {
+            return false
+          }
+        }
+      }
+      return true
+    }))
+  }, [searchBarText])
+
+  const memberIndexRef = useRef(memberIndex)
+
+  const setMemberIndex = (index) => {
+    memberIndexRef.current = index
+    _setMemberIndex(index)
   }
 
-  /**
-  * Returns member icon according to role specified.
-  * @param {string} role: Member role.
-  * @return {icon}
-  */
-  memberIcon = (role: string) => {
+  const memberList = (() => {
+    if (searchBarText !== '') {
+      return filteredMembers
+    }
+    return active ? activeMembers : inactiveMembers
+  })()
+
+  useEffect(() => {
+    const updateGridCols = () => {
+      setGridCols(numberOfGridCols())
+    }
+
+    const keyListener = (event: KeyboardEvent) => {
+      if (event.keyCode === 27) {
+        setShowModal(false)
+      }
+      if (event.keyCode === 37) {
+        if (memberIndexRef.current === 0) {
+          setMemberIndex(memberList.length - 1)
+        } else {
+          setMemberIndex(memberIndexRef.current - 1)
+        }
+      } else if (event.keyCode === 39) {
+        setMemberIndex((memberIndexRef.current + 1) % memberList.length)
+      }
+    }
+
+    window.addEventListener('resize', updateGridCols)
+    document.addEventListener('keydown', keyListener, false)
+
+    return () => {
+      window.removeEventListener('resize', updateGridCols)
+      document.removeEventListener('keydown', keyListener)
+    }
+  }, [memberList])
+
+  const memberIcon = (role: string) => {
     if (role === 'Software Development') {
       return faCode
     } if (role === 'Electronics') {
@@ -100,247 +168,103 @@ class MembersGrid extends Component<Props, State> {
     return faRocket
   }
 
-  /**
-  * Calculates how many members per row to display on the member's grid.
-  * @return {number} Number of members per row for grid.
-  */
-  numberOfColumns = () => {
-    if (window.innerWidth >= LARGE_WIDTH) {
-      return 5
-    }
-    if (window.innerWidth >= MEDIUM_WIDTH) {
-      return 4
-    }
-    if (window.innerWidth >= MOBILE_WIDTH) {
-      return 3
-    }
-    return 2
-  }
-
-  /**
-  * Parses path to member image
-  * @param {string} imgPath: Path to member's photographs.
-  * @return {path}
-  */
-  tryRequire = (imgPath: string) => {
-    try {
-      return require(`../../../images/members/${imgPath}`)
-    } catch (err) {
-      return placeholder
-    }
-  }
-
-  /**
-  * Shows member's modal by updating state
-  * @param {prop} member: Member to be shown.
-  */
-  handleShowModal = (current_member: Member) => {
-    this.setState({
-      show_modal: true,
-      member: current_member,
-      active: this.active_members_keys.includes(current_member.id),
-    })
-  }
-
-  /**
-  * Hides member's modal by updating state.show_modal
-  */
-  handleHideModal = () => {
-    this.setState({
-      show_modal: false,
-    })
-  }
-
-  /**
-  * Operations to hide and change modals on pressed arrow keys.
-  * @param {KeyboardEvent} event: React event
-  */
-  keyFunction = (event: KeyboardEvent) => {
-    if (event.keyCode === 27) {
-      this.handleHideModal()
-    }
-    let next_member_index_difference = 0
-    if (event.keyCode === 37) {
-      next_member_index_difference = -1
-    } else if (event.keyCode === 39) {
-      next_member_index_difference = 1
-    }
-    this.updateMember(next_member_index_difference)
-  }
-
-  /**
-  * Function called from carrousel's change of view to update state.member
-  * @param {number} next: Id of next view to be displayed.
-  * @param {number} current: Id of current view in display.
-  */
-  changeMemberUIArrows = (next: number) => {
-    const { active_members, inactive_members } = this.props
-    const { active } = this.state
-    if (active) {
-      this.setState({
-        member: active_members[next],
-      })
-    } else {
-      this.setState({
-        member: inactive_members[next],
-      })
-    }
-  }
-
-  /**
-  * Updates state.number_of_columns
-  */
-  updateNumberOfColumns = () => {
-    this.setState({
-      number_of_columns: this.numberOfColumns(),
-    })
-  }
-
-  /**
-  * Generates member grid component.
-  * @param {prop} members: Member to be shown.
-  * @param {string} title: Member to be shown.
-  * @return {component} Grid of member list data.
-  */
-  generateGridList = (members: Array<Member>, title: string) => {
-    const { number_of_columns } = this.state
-    return (
-      <div>
-        <div
-          style={{ display: (title === '') ? 'none' : 'block' }}
-          className="grid-title"
-        >
-          <h1 className="grid-title-text">
-            { title }
-          </h1>
-        </div>
-        <GridList
-          cellHeight="auto"
-          className="members-grid"
-          cols={number_of_columns}
-          spacing={3}
-        >
-          { members.map((member) => (
-            <GridListTile
-              key={member.id}
-              cols={1}
-              id={`members-grid-tile-${member.id}`}
-              className="members-grid-tile"
-              onClick={() => this.handleShowModal(member)}
-            >
-              <div className="member-image-container">
-                <img
-                  className="member-image"
-                  src={this.tryRequire(`${member.id}.jpg`)}
-                  alt={member.name}
-                />
-                <div className="member-image-content">
-                  <p>
-                    { `${member.name} ${member.lastname}` }
-                  </p>
-                  <div className="member-image-icon">
-                    <FontAwesomeIcon
-                      icon={this.memberIcon(member.role)}
-                      size="1x"
-                    />
-                  </div>
+  const renderGridList = (members: Array<Member>, title: string) => (
+    <div>
+      <div
+        style={{ display: (title === '') ? 'none' : 'block' }}
+        className="grid-title"
+      >
+        <h1 className="grid-title-text">
+          { title }
+        </h1>
+      </div>
+      <GridList
+        cellHeight="auto"
+        className="members-grid"
+        cols={gridCols}
+        spacing={3}
+      >
+        { members.map((member, index) => (
+          <GridListTile
+            key={member.id}
+            cols={1}
+            id={`members-grid-tile-${member.id}`}
+            className="members-grid-tile"
+            onClick={() => {
+              setShowModal(true)
+              setMemberIndex(index)
+              setActive(member.status !== 'inactive')
+            }}
+          >
+            <div className="member-image-container">
+              <img
+                className="member-image"
+                src={tryRequire(`${member.id}.jpg`)}
+                alt={member.name}
+              />
+              <div className="member-image-content">
+                <p>
+                  { `${member.name} ${member.lastname}` }
+                </p>
+                <div className="member-image-icon">
+                  <FontAwesomeIcon
+                    icon={memberIcon(member.role)}
+                    size="1x"
+                    color="#ccc"
+                  />
                 </div>
               </div>
-            </GridListTile>
-          )) }
-        </GridList>
-      </div>
-    )
-  }
-
-  /**
-  * Returns Component MemberModal with specified member atributes.
-  * @param {prop} member: Member object.
-  * @return {icon}
-  */
-  carouselItem = (member: Member) => (
-    <MemberModal
-      member={member}
-      onHide={this.handleHideModal}
-    />
+            </div>
+          </GridListTile>
+        )) }
+      </GridList>
+    </div>
   )
 
-  /**
-  * Updates member state.
-  * @param {number} difference: States if the next member to be shown is
-  *  next or previous based on the index difference of the member on the list.
-  */
-  updateMember = (difference: number) => {
-    const { active, member } = this.state
-    const { id } = member
-    const { active_members, inactive_members } = this.props
-    let newId
-    if (difference === 0) return
-    if (active) {
-      newId = (this.active_members_keys.indexOf(id)
-        + difference < 0) ? active_members.length - 1
-        : (this.active_members_keys.indexOf(id) + difference)
-        % active_members.length
-      this.setState({
-        member: active_members[newId],
-      })
-    } else {
-      newId = (this.inactive_members_keys.indexOf(id)
-      + difference < 0) ? inactive_members.length - 1
-        : (this.inactive_members_keys.indexOf(id) + difference)
-      % inactive_members.length
-      this.setState({
-        member: inactive_members[newId],
-      })
-    }
-  }
-
-  /**
-  * Render funciton of grid and member
-  * @return {components} Active and inactive members grid, as well as carousel.
-  */
-  render() {
-    const { active, show_modal, member } = this.state
-    const { id } = member
-    const { active_members, inactive_members } = this.props
-    return (
-      <div className="members-grid-container" data-testid="members-grid-container">
-        { this.generateGridList(active_members, '') }
-        { this.generateGridList(inactive_members,
-          'RoBorregos Legacy') }
-        <Modal
-          className="modal-container"
-          data-testid="modal-container"
-          show={show_modal}
-          dialogAs={() => (
-            <Carousel
-              className={`member-carrousel-${String(active)}`}
-              navButtonsAlwaysVisible
-              autoPlay={false}
-              timeout={200}
-              fullHeightHover={false}
-              indicators={false}
-              onChange={(next) => {
-                this.changeMemberUIArrows(next)
-              }}
-              index={(active)
-                ? this.active_members_keys.indexOf(id)
-                : this.inactive_members_keys.indexOf(id)}
-              startAt={(active)
-                ? this.active_members_keys.indexOf(id)
-                : this.inactive_members_keys.indexOf(id)}
-            >
-              {
-                (active)
-                  ? active_members.map((active_member) => this.carouselItem(active_member))
-                  : inactive_members.map((inactive_member) => this.carouselItem(inactive_member))
-              }
-            </Carousel>
-          )}
+  return (
+    <div className="members-grid-container" data-testid="members-grid-container">
+      <div className="members-grid-search-bar">
+        <FontAwesomeIcon icon={faSearch} className="members-search-bar-icon" />
+        <input
+          type="text"
+          className="members-grid-search-bar-input"
+          placeholder='Try  "mechanic",  "software",  "Aurora"'
+          onChange={(e) => setSearchBarText(e.target.value)}
+          value={searchBarText}
         />
       </div>
-    )
-  }
+      { searchBarText === '' ? (
+        [renderGridList(activeMembers, ''), renderGridList(inactiveMembers, 'RoBorregos Legacy')]
+      ) : renderGridList(filteredMembers, '')}
+      <Modal
+        className="modal-container"
+        data-testid="modal-container"
+        show={showModal}
+        dialogAs={() => (
+          <Carousel
+            navButtonsAlwaysVisible
+            autoPlay={false}
+            timeout={200}
+            fullHeightHover={false}
+            indicators={false}
+            onChange={(next) => setMemberIndex(next)}
+            index={memberIndex}
+            startAt={memberIndex}
+          >
+            {
+              memberList.map((member) => (
+                <MemberModal
+                  member={member}
+                  onHide={() => setShowModal(false)}
+                  key={member.id}
+                />
+              ))
+            }
+          </Carousel>
+        )}
+      />
+    </div>
+  )
 }
 
 export default MembersGrid

@@ -169,7 +169,6 @@ class ProjectsOther extends Component<Props, State> {
                     className="other-project-image"
                     src={this.tryRequire(`${project.image}.jpg`)}
                     alt={project.title}
-                    // style={{ backgroundColor: project.background }}
                   />
                   <div className="project-title">
                     <p>
@@ -197,9 +196,7 @@ class ProjectsOther extends Component<Props, State> {
           </p>
         </div>
       </div>
-      <div>
-        {this.projects.map((project, index) => this.generateSmallCard(project, index))}
-      </div>
+      {this.projects.map((project, index) => this.generateSmallCard(project, index))}
     </div>
   )
 

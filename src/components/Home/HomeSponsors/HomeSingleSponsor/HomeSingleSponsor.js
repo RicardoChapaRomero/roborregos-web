@@ -24,7 +24,7 @@ const HomeSingleSponsor = (props: Props) => {
   }
   const { sponsor } = props
   return (
-    <a test-id="a1" href={sponsor.link} className="single-sponsor">
+    <a test-id="a1" href={sponsor.link} className="single-sponsor" target="_blank" rel="noreferrer noopener">
       <img
         className="sponsor-image"
         src={tryRequire(sponsor.img_path)}

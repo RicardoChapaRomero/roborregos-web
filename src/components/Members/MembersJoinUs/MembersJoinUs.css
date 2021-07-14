@@ -3,6 +3,8 @@
   position: relative;
   background: linear-gradient( 45deg, rgba(0, 94, 105, 0.9) 30%, rgba(20, 18, 19, 0.9) 100%), url(../../../images/github_pattern.svg) top left/auto repeat fixed;
   color: rgba(255, 255, 255, 0.8);
+  display: flex;
+  justify-content: center;
 }
 
 .members-join-us-description {
@@ -13,7 +15,7 @@
 }
 
 .members-join-us-button {
-  left: 40%;
+  /* left: 40%; */
   width: 28vw;
   height: 12vh;
   transition: 0.2s;
@@ -27,7 +29,7 @@
   border-radius: 8px;
   text-align: center;
   vertical-align: middle;
-  border: 2px solid white;
+  border: 2px solid #00FFFA;
   background-color: #13191E;
   transition: 0.2s
 }
@@ -47,9 +49,9 @@
     height: 20%;
     width: 40%;
   }
-  .members-join-us-button {
+  /* .members-join-us-button {
     left: 36%;
-  }
+  } */
 }
 
 .members-join-us-button:hover {

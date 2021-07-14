@@ -8,6 +8,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons'
 import { SMALL_WIDTH } from '../../../../constants'
 
+const WINDOW_VIEW_PERCENTAGE = 0.95
+
 type Project = {
   title: string,
   description: string,
@@ -130,11 +132,11 @@ class ProjectsCard extends Component<Props, State> {
   getScrollers = () => {
     if (this.show_scrollers) {
       return (
-        <div className="icon-container">
+        <div className="scroll-next">
           <FontAwesomeIcon
             onClick={() => this.scrollToInfo()}
             icon={faAngleDown}
-            className="icon-btn"
+            className="scroll-next-icon"
           />
         </div>
       )
@@ -143,8 +145,8 @@ class ProjectsCard extends Component<Props, State> {
   }
 
   scrollToInfo = () => {
-    window.scrollBy(0, window.innerHeight * (this.index + 2) - (85 * (this.index + 1))
-     - window.scrollY + 35 * (this.index))
+    window.scrollBy(0, window.innerHeight * (WINDOW_VIEW_PERCENTAGE)
+    - (window.scrollY - (this.index + 1) * window.innerHeight * (WINDOW_VIEW_PERCENTAGE)))
   }
 
   smallView = () => (
@@ -187,7 +189,7 @@ class ProjectsCard extends Component<Props, State> {
     const { large_view } = this.state
     if (large_view) {
       return (
-        <div>
+        <div id={`card-${this.index}`}>
           <Fade in {...{ timeout: 2000 }}>
             {this.largeView()}
           </Fade>

@@ -10,7 +10,8 @@
   width: 100%;
   top: 0;
   background: rgba(0, 0, 0, 0.4);
-  font-size: 2em;
+  font-size: 2rem;
+  padding: 0 6vw;
   display: -webkit-flexbox;
   display: -ms-flexbox;
   display: -webkit-flex;
@@ -49,4 +50,8 @@
 
 .timeline-element-content:hover {
   opacity: 1;
+}
+
+.event-title {
+  font-size: 3.5vh;
 }

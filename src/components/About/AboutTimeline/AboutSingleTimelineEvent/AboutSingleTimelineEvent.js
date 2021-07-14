@@ -44,7 +44,7 @@ class AboutSingleTimelineEvent extends React.Component<Props, *> {
 
     this.date = event.date
     this.year = this.date.substr(this.date.length - 4)
-    this.backgroundColor = this.resolveColor(this.year)
+    this.backgroundColor = this.resolveColor()
 
     this.state = defaultState
   }
@@ -56,15 +56,12 @@ class AboutSingleTimelineEvent extends React.Component<Props, *> {
 
   resolvePosition = (year: string) => (parseInt(year, 10) % 2 ? 'right' : 'left')
 
-  resolveColor = (year: string) => {
-    const colors = ['rgb(0, 178, 154)', 'rgb(238, 77, 122)', 'rgb(255, 130, 0)', 'rgb(155, 0, 250)']
-    return colors[parseInt(year, 10) % 4]
-  }
+  resolveColor = () => 'rgb(255, 117, 73)'
 
   tryRequire = (img_path: string) => {
     try {
       // $FlowFixMe
-      return require(`../../../../images/about/timeline/${img_path}`) // eslint-disable-line import/no-dynamic-require, global-require
+      return require(`../../../../images/about/timeline/${img_path}.jpg`) // eslint-disable-line import/no-dynamic-require, global-require
     } catch (err) {
       return placeholder
     }
@@ -117,7 +114,7 @@ class AboutSingleTimelineEvent extends React.Component<Props, *> {
           style={{ background: this.contentColor }}
         >
           <div>
-            <h3>
+            <h3 className="event-title">
               { event.title }
             </h3>
             <p>
