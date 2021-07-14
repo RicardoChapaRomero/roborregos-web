@@ -13,9 +13,6 @@ function MembersValues() {
 
   return (
     <div className="members-values">
-      {/* <div className="members-values-title">
-        <h1> Our Values </h1>
-      </div> */}
       <div className="members-values-container">
         <div className="members-values-card">
           <div className="members-values-card-overlay" />
